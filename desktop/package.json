@@ -18,7 +18,7 @@
     "css:watch": "ngtw watch",
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
-    "start": "npm-run-all -p electron:serve ng:serve css:watch",
+    "start": "npm run css && npm-run-all -p electron:serve ng:serve css:watch",
     "build": "ngtw build && npm run electron:serve-tsc && ng build --base-href ./",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
