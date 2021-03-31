@@ -1,0 +1,31 @@
+<app-header
+  [backLink]="'/program'"
+  [backText]="'Ders ekle / çıkar'"
+  [nextLink]="'/program/save'"
+  [nextText]="'Kaydet'"
+  [nextNoIcon]="true"
+>
+  Program Oluşturma
+</app-header>
+<div
+  class="flex flex-row overflow-y-hidden unselectable"
+  style="height: calc(100% - 3rem)"
+>
+  <div
+    class="relative z-10 shadow-sm border-r border-gray-400 p-4 bg-gray-300 h-full w-full text-sm"
+    style="width: 360px; max-width: 33%; min-width: 25%"
+  >
+    <app-filters class="z-10"></app-filters>
+    <app-course-details
+      [course]="infoService.hoveredCourse | async"
+      class="absolute bottom-0 left-0 w-full z-40"
+    ></app-course-details>
+  </div>
+
+  <div class="w-full flex flex-col h-full">
+    <app-weekly-table></app-weekly-table>
+    <div class="overflow-y-auto h-full mt-4">
+      <app-pool></app-pool>
+    </div>
+  </div>
+</div>

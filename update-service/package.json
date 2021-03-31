@@ -1,0 +1,34 @@
+{
+  "name": "programmer-scraper",
+  "version": "1.0.0",
+  "description": "This is a scraper for ituprogram.com",
+  "main": "main.js",
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "nodemon src/main.ts",
+    "build": "tsc -p .",
+    "build-run": "tsc -p . && node dist/main.js",
+    "deploy": "deploy.bat"
+  },
+  "keywords": [],
+  "author": "Koray Kural",
+  "repository": "https://github.com/koraykural/ituprogram-server",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.2",
+    "node-cron": "^3.0.0",
+    "puppeteer": "^8.0.0",
+    "telegraf": "^3.38.0"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.6.11",
+    "@types/mongoose": "^5.10.4",
+    "@types/node-cron": "^2.0.3",
+    "@types/puppeteer": "^5.4.3",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}

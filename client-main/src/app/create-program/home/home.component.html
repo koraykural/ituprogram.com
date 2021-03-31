@@ -1,0 +1,36 @@
+<div class="container-sm p-0">
+    <app-week-table></app-week-table>
+
+    <app-class-pool *ngIf="isClassesLoaded"></app-class-pool>
+
+    <!-- Placeholder -->
+    <div class="d-flex justify-content-center">
+        <div *ngIf="!isClassesLoaded" class="spinner-border mt-5 mb-5" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Dersler veritabanından alınıyor...</span>
+        </div>
+    </div>
+
+    <!-- bottom buttons -->
+    <div class="container-fluid bottom-buttons">
+        <div class="row justify-content-center mb-3">
+            <button
+            routerLink="/class-select"
+            type="button"
+            class="btn btn-sm btn-secondary mx-1 mt-3">
+                Ders ekle / çıkar
+            </button>
+            <button *ngIf="saveButtonSituation == 0" class="btn btn-sm btn-primary mx-1 mt-3" (click)="filterClick()">
+                Filtreler
+                <span>({{ numOfUnfiltered }} / {{ numOfClasses }})</span>
+            </button>
+            <button *ngIf="saveButtonSituation < 2" (click)="submit()" id="saveAll" type="button" class="btn btn-sm btn-primary mx-1 mt-3">
+                <span *ngIf="saveButtonSituation == 0">Kaydet</span>
+                <span *ngIf="saveButtonSituation == 1" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span *ngIf="saveButtonSituation == 1">Lütfen bekleyin</span>
+            </button>  
+            <button *ngIf="saveButtonSituation == 2" class="btn btn-sm btn-danger mx-1 mt-3" disabled>
+                Lütfen birazdan tekrar dene :(
+            </button>
+        </div>
+    </div>
+</div>

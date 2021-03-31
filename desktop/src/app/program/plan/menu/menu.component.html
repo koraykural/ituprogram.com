@@ -1,0 +1,22 @@
+<mat-slide-toggle
+  class="block unselectable mb-6 text-gray-900"
+  [color]="'primary'"
+  [checked]="programService.isNotOpenedHidden"
+  [disableRipple]="true"
+  (change)="isOpenedFilterChange($event.checked)"
+>
+  Açılmayan dersleri gizle
+</mat-slide-toggle>
+
+<label class="block">
+  Şu notun üzerinde aldığım dersleri gizle
+  <ng-select
+    class="text-sm thin-scrollbar"
+    [items]="grades"
+    [bindValue]="'value'"
+    [notFoundText]="''"
+    [searchable]="false"
+    [(ngModel)]="maxGrade"
+    (change)="maxGradeFilterChange($event)"
+  ></ng-select>
+</label>

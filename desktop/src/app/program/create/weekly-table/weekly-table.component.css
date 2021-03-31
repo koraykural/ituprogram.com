@@ -1,0 +1,17 @@
+table td {
+  border-right: 1px solid #e2e8f0;
+  border-left: 1px solid #e2e8f0;
+}
+table th {
+  border-right: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: 500;
+}
+tbody th {
+  padding-top: 0.33rem;
+  padding-bottom: 0.33rem;
+}
+thead th {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}

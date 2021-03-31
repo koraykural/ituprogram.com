@@ -1,0 +1,12 @@
+.restrict-cell {
+  min-width: 200px;
+}
+.restrict-cell > div {
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+.restrict-cell > div:hover {
+  max-height: 500px;
+  overflow: visible;
+}

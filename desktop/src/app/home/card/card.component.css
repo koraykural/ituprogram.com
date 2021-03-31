@@ -1,0 +1,10 @@
+:host > a {
+  transition: all;
+  transition-duration: 300ms;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  font-smoothing: antialiased !important;
+}
+:host > a:hover {
+  transform: scale(1.02) perspective(1px) translateZ(0);
+}

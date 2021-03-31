@@ -1,0 +1,124 @@
+<!-- Placeholder -->
+<div class="d-flex justify-content-center">
+    <div
+    *ngIf="!planService.planData.value || planService.planData.value.length < 1"
+    class="spinner-border mt-5 mb-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Dersler veritabanından alınıyor...</span>
+    </div>
+</div>
+
+<div class="align-self-center class-select" *ngFor="let group of this.planService.planData.value">
+    <h5 class="unselectable text-center mt-4">{{ group.label }}</h5>
+    <div class="table-responsive-lg">
+        <table class="table table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" class="select-all" style="width: 10%;"
+                        [ngClass]="{'table-primary': group.allSelected}"
+                        (click)="allSelectclick(group)">
+                        <div class="custom-control custom-checkbox">
+                            <input disabled
+                                type="checkbox" class="custom-control-input"
+                                id="selectAll" [checked]="group.allSelected">
+                            <label
+                                class="custom-control-label"
+                                for="selectAll">
+                            </label>
+                        </div>
+                    </th>
+                    <th style="width: 20%;" class="unselectable">Kod</th>
+                    <th style="width: 60%;" class="unselectable">Ders</th>
+                    <th style="width: 10%;" class="unselectable">Kredi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of group.items">
+                    <tr
+                    *ngIf="isAvailableToShow(group, item)"
+                    class="pointer"
+                    [ngClass]="{'table-primary': true === item.selected, 'table-active': !item.isOpened}"
+                    (click)="item.isOpened ? rowClick(group, item) : doNothing()">
+
+                        <th scope="row">
+                            <div class="custom-control custom-checkbox">
+                                <input
+                                type="checkbox"
+                                class="custom-control-input"
+                                [id]="item.code"
+                                [checked]="item.selected"
+                                [disabled]="true">
+                                <label class="custom-control-label" [for]="item.code"></label>
+                            </div>
+                        </th>
+                        <td class="unselectable">{{ item.code }}</td>
+                        <td class="unselectable">{{ item.name }}</td>
+                        <td class="unselectable">{{ item.credits < 0 ? '-' : item.credits }}</td>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="isClassesNotOpenedRow(group)">
+                    <tr class="table-active">
+                        <td colspan="4" class="text-center">Bu gruptaki dersler açılmamış</td>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="isGroupBig(group)">
+                    <tr class="table-success unselectable pointer" *ngIf="!group.isCollapsed" (click)="toggleGroupSize(group)">
+                        <td colspan="4" class="text-center">&darr; Hepsini göster &darr;</td>
+                    </tr>
+                    <tr class="table-success unselectable pointer" *ngIf="group.isCollapsed" (click)="toggleGroupSize(group)">
+                        <td colspan="4" class="text-center">&uarr; Grubu küçült &uarr;</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <br/>
+    </div>
+</div>
+
+<table class="table table-sm table-borderless mt-2" *ngIf="!planService.planData.value || planService.planData.value.length > 0">
+    <label for="class-adder">Yukarıda bulamadığın bir dersi buradan ekleyebilirsin.</label>
+    <div class="input-group input-group-sm" id="class-adder">
+        <select class="form-control selectpicker" style="max-width: 120px;" (change)="codeLetterSelect($event.target.value)">
+            <option selected></option>
+            <option *ngFor="let letter of codeLetters">{{ letter }}</option>
+        </select>
+        <select class="form-control selectpicker" (change)="selectedCode = $event.target.value">
+            <option *ngFor="let course of courses">{{ course }}</option>
+        </select>
+        <button type="button" class="btn btn-sm btn-primary px-5" [disabled]="!selectedCode || !selectedLetter" (click)="addExtra()">Ekle</button>
+    </div>
+</table>
+
+<div class="align-self-center text-center" *ngIf="!planService.planData.value || planService.planData.value.length > 0">
+    <div class="custom-control custom-checkbox m-3">
+        <input type="checkbox" class="custom-control-input" (click)="toggleHide()"
+            id="hideNotOpened" [checked]="isNotOpenedHidden">
+        <label class="custom-control-label" for="hideNotOpened">
+                Açılmayan dersleri gizle
+        </label>
+    </div>
+</div>  
+
+<div class="extra-height" [style]="'height: 80px;'"></div>
+
+<div class="fixed-bottom bg-white">
+    <div class="container" *ngIf="planService.planData.value">
+        <div class="row justify-content-center mt-3 mb-3">
+            <button
+            routerLink="/department"
+            type="button"
+            class="btn btn-sm btn-danger mx-3">
+                Geri dön
+            </button>
+            <button
+            [disabled]="!isAvailableToContinue"
+            routerLink="/create-program"
+            type="button"
+            class="btn btn-sm btn-primary mx-3"
+            (click)="onSubmit()">
+                Devam et
+            </button>  
+        </div>
+    </div>
+</div>

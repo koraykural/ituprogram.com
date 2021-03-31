@@ -1,0 +1,40 @@
+<table
+  class="w-full border-collapse table-fixed bg-white text-gray-700 text-sm unselectable"
+>
+  <thead>
+    <tr class="border-b border-gray-500">
+      <th style="width: 70px"></th>
+      <th style="width: calc((100% - 70px) / 5)" scope="col">Pazartesi</th>
+      <th style="width: calc((100% - 70px) / 5)" scope="col">Salı</th>
+      <th style="width: calc((100% - 70px) / 5)" scope="col">Çarşamba</th>
+      <th style="width: calc((100% - 70px) / 5)" scope="col">Perşembe</th>
+      <th style="width: calc((100% - 70px) / 5)" scope="col">Cuma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let hour of data; let hIndex = index">
+      <tr>
+        <th scope="row" class="border-r border-b border-gray-500">
+          {{ hourLabels[hIndex] }}
+        </th>
+        <ng-container *ngFor="let cell of hour">
+          <td
+            class="transition-colors px-4 duration-200 unselectable border border-gray-200"
+            [ngClass]="{
+              'bg-green-200 border-green-300': cell.state === 'ok',
+              'bg-yellow-200': cell.state === 'warning',
+              'bg-red-200': cell.state === 'error',
+              'bg-green-300':
+                cell.course &&
+                cell.course === (infoService.hoveredCourse | async)
+            }"
+            (mouseenter)="mouseEnterCell(cell)"
+            (mouseleave)="mouseLeftCell()"
+          >
+            {{ cellDisplay(cell) }}
+          </td>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

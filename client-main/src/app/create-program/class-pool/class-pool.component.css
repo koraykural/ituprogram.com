@@ -1,0 +1,36 @@
+.table tbody tr:hover {
+    cursor: pointer;
+}
+.narrow-column {
+    min-width: 70px;
+}
+.medium-column {
+    min-width: 90px;
+}
+.wide-column {
+    min-width: 180px;
+}
+.table-responsive {
+    min-height: 160px;
+}
+.table-responsive {
+    max-height: 500px;
+}
+th {
+    cursor: pointer;
+}
+thead th:first-child {
+    cursor: default;
+}
+
+@media only screen and (max-width: 600px) {
+    table {
+        font-size: 0.8em;
+    }
+    .medium-column {
+        min-width: 75px;
+    }
+    .wide-column {
+        min-width: 150px;
+    }
+}

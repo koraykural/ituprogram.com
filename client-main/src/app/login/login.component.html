@@ -1,0 +1,20 @@
+<div class="container-sm text-center" style="max-width: 400px;">
+  <form [formGroup]="continueForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mt-5">
+      <label for="pin" class="mt-5">PIN Numaran</label>
+      <input class="form-control form-control-lg" type="text" id="pin" formControlName="id"
+      [ngClass]="{'is-invalid': id.invalid && id.dirty && id.touched}"/>
+      <div *ngIf="id.invalid && id.dirty && id.touched" class="invalid-feedback">
+        5 haneli PIN numaranı girmelisin.
+      </div>
+      <div *ngIf="idNotFound" class="alert alert-danger" role="alert">
+        Bu PIN numarasıyla ilişkilendirilmiş program bulamadım :(
+      </div>
+    </div>
+    <button routerLink="" type="button" class="btn btn-secondary btn-lg mx-3">Geri dön</button>
+    <button [disabled]="id.invalid" type="submit" class="btn btn-lg btn-primary mx-3">
+      <span *ngIf="buttonSituation == 0">Devam et</span>
+      <span *ngIf="buttonSituation == 1" class="spinner-border mx-5" style="width: 1.6rem; height: 1.6rem;" role="status"></span>
+    </button>
+  </form>
+</div>

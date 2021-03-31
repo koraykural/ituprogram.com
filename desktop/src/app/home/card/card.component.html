@@ -1,0 +1,45 @@
+<ng-container *ngIf="!inappLink">
+  <a
+    class="flex flex-col items-center justify-center rounded shadow hover:shadow-md transition-all duration-300 px-4 m-4 cursor-pointer unselectable"
+    [ngClass]="
+      theme === 'primary'
+        ? 'bg-blue-500 text-white hover:bg-blue-600'
+        : 'bg-white text-blue-500 hover:text-blue-700'
+    "
+    style="height: 200px; width: 240px"
+    [href]="link"
+    target="_blank"
+  >
+    <div style="flex: 2" class="h-full flex items-center">
+      <i [ngClass]="icon" class="fa-3x"></i>
+    </div>
+    <div style="flex: 1">
+      <h2 class="text-lg font-semibold text-center">
+        <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+      </h2>
+    </div>
+  </a>
+</ng-container>
+
+<ng-container *ngIf="inappLink">
+  <a
+    class="flex flex-col items-center justify-center rounded shadow hover:shadow-md transition-all duration-300 px-4 m-4 cursor-pointer unselectable"
+    [ngClass]="
+      theme === 'primary'
+        ? 'bg-blue-500 text-white hover:bg-blue-600'
+        : 'bg-white text-blue-500 hover:text-blue-700'
+    "
+    style="height: 200px; width: 240px"
+    [routerLink]="link"
+  >
+    <div style="flex: 2" class="h-full flex items-center">
+      <i [ngClass]="icon" class="fa-3x"></i>
+    </div>
+    <div style="flex: 1">
+      <h2 class="text-lg font-semibold text-center">
+        <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+      </h2>
+    </div>
+  </a>
+</ng-container>
+<ng-template #contentTpl><ng-content></ng-content></ng-template>

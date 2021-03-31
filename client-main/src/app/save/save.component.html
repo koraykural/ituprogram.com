@@ -1,0 +1,26 @@
+<div class="container-sm text-center">
+  <h1 class="text-center mt-5">Harika!</h1>
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h5 class="mt-4">
+      Programının detaylı sonucunu içeren pdf dosyasını aşağıda bulabilirsin.
+    </h5>
+    <h5 class="mt-4"><a class="text-primary font-weight-bold" href="http://ituprogram.com">ituprogram.com</a>'u kullandığın için teşekkür ederim.</h5>
+  </div>
+
+  <div class="text-center">
+    <button 
+    class="btn btn-lg btn-primary mt-4 text-center" 
+    (click)="generatePdf()">
+      <span *ngIf="pdfButtonSituation == 0">PDF dosyasını aç</span>
+      <div *ngIf="pdfButtonSituation == 1" class="d-flex justify-content-center">
+        <div class="spinner-border mx-5" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+      </div>
+    </button>
+  </div>
+  <div class="text-muted">
+    Popup ve reklam engelleyicileri kapatman gerekebilir.
+  </div>
+  <div class="text-center">
+    <button routerLink="/create-program" class="btn btn-lg btn-secondary mt-3">Geri dön</button>
+  </div>
+</div>

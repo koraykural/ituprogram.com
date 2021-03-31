@@ -1,0 +1,21 @@
+<app-header
+  [backLink]="'/'"
+  [backTheme]="'danger'"
+  [backDescription]="'Kaydetmediğiniz değişiklikler silinecektir.'"
+  [nextLink]="'create'"
+  [nextText]="'Haftalık çizelge'"
+>
+  Ders Seçimi
+</app-header>
+<div class="flex flex-row" style="height: calc(100% - 3rem)">
+  <div
+    class="z-10 shadow-sm border-r border-gray-400 p-4 bg-gray-300 h-full w-full text-sm"
+    style="width: 360px; max-width: 33%; min-width: 25%"
+  >
+    <app-menu></app-menu>
+  </div>
+
+  <div class="overflow-y-auto w-full">
+    <app-table></app-table>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="mb-10 mt-2">
+  <table class="relative w-full text-sm">
+    <thead>
+      <tr>
+        <th
+          colspan="4"
+          class="text-center text-xl font-semibold text-gray-800 py-1"
+        >
+          Ek Dersler
+        </th>
+      </tr>
+      <tr class="text-left w-full bg-gray-100 text-gray-700 font-medium">
+        <th class="py-2 pl-8 pr-4">Ders kodu</th>
+        <th class="py-2 px-4">Ders ismi</th>
+        <th class="py-2 px-4">Kredi</th>
+        <th class="py-2 pr-8 pl-4 text-right">Alınan not</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y">
+      <tr *ngFor="let item of items" class="bg-white">
+        <td class="pl-8 pr-4 py-2">
+          {{ item.code }}
+        </td>
+        <td class="px-4 py-2">
+          {{ item.name }}
+        </td>
+        <td class="px-4 py-2">
+          {{ item.credits }}
+        </td>
+        <td class="pr-8 pl-4 py-2 float-right">
+          <ng-select
+            class="w-20 text-sm thin-scrollbar ng-selected"
+            [items]="grades"
+            [bindValue]="'value'"
+            [notFoundText]="''"
+            [searchable]="false"
+            (change)="setGrade($event, item)"
+            [(ngModel)]="item.grade"
+          ></ng-select>
+        </td>
+      </tr>
+      <tr class="bg-white">
+        <td colspan="3" class="pl-8 pr-4 py-2">
+          <ng-select
+            typeToSearchText="3 harften oluşan ders kodunu giriniz"
+            [typeahead]="codeInput"
+            [items]="options"
+            [loading]="optionsLoading"
+            [(ngModel)]="selectedCode"
+            [dropdownPosition]="'top'"
+          ></ng-select>
+        </td>
+        <td class="pr-8 pl-4 py-2 float-right">
+          <button
+            (click)="addNew()"
+            class="py-2 px-6 bg-green-600 hover:bg-green-700 text-white rounded-sm"
+          >
+            Ekle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

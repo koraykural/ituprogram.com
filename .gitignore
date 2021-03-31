@@ -1,0 +1,7 @@
+/dev-folder
+*/node_modules
+*/dist
+*/release
+desktop/main.js*
+package-lock.json
+.env

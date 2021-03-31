@@ -1,0 +1,41 @@
+<app-header [backLink]="'/'"> Kişisel Bilgilerim </app-header>
+<div class="flex flex-row" style="height: calc(100% - 3rem)">
+  <div
+    class="z-10 shadow-sm border-r border-gray-400 p-4 bg-gray-300 h-full w-full text-sm"
+    style="width: 360px; max-width: 33%; min-width: 25%"
+  >
+    <div class="pb-4 border-b border-gray-400">
+      <ng-container *ngIf="!(planService.basePlan | async)">
+        <app-plan-selector></app-plan-selector>
+      </ng-container>
+      <ng-container *ngIf="planService.basePlan | async">
+        <div>
+          <div
+            class="flex flex-row justify-between items-center h-6 overflow-visible"
+          >
+            <div class="font-semibold">Ders Planı</div>
+            <button
+              class="p-2 text-blue-600 hover:text-blue-700"
+              (click)="planService.resetAll()"
+            >
+              <i class="fas fa-edit text-lg"></i>
+            </button>
+          </div>
+          <p>{{ (planService.basePlan | async).faculty.name }}</p>
+          <p>{{ (planService.basePlan | async).subject.name }}</p>
+          <p>{{ (planService.basePlan | async).term.name }}</p>
+        </div>
+      </ng-container>
+    </div>
+    <div
+      *ngIf="planService.basePlan | async"
+      class="py-4 border-b border-gray-400"
+    >
+      <app-average></app-average>
+    </div>
+  </div>
+
+  <div class="flex-grow overflow-y-auto -mr-px">
+    <app-plan-table></app-plan-table>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<app-header [backLink]="'/'"> Ders Arşivi </app-header>
+<div class="flex flex-row" style="height: calc(100% - 3rem)">
+  <div
+    class="shadow-sm border-r border-gray-400"
+    style="width: 320px; max-width: 33%; min-width: 20%"
+  >
+    <app-selector></app-selector>
+  </div>
+
+  <div class="flex-grow overflow-y-auto -mr-px">
+    <app-table></app-table>
+  </div>
+</div>

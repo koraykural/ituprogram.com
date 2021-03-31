@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.my-row {
+  height: 100vh;
+}
+.row {
+  margin: auto 0;
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+input[type="checkbox"] + label {
+  cursor: pointer;
+}
+.nobr {
+  white-space: nowrap;
+  hyphens: none;
+}

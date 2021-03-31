@@ -1,0 +1,46 @@
+<div class="container flex justify-center items-center w-full h-full">
+  <div
+    class="flex flex-row justify-center flex-wrap max-h-full"
+    style="max-width: 816px"
+  >
+    <app-card
+      class="w-1/3"
+      [icon]="'fas fa-plus'"
+      [theme]="'primary'"
+      [link]="'/program'"
+    >
+      <h2 text>Yeni program oluştur</h2>
+    </app-card>
+    <app-card class="w-1/3" [icon]="'fas fa-list'">
+      <h2 text>Geçmiş programlarım</h2>
+    </app-card>
+    <app-card class="w-1/3" [icon]="'fas fa-address-card'" [link]="'/personal'">
+      <h2 text>Kişisel bilgilerim</h2>
+    </app-card>
+    <app-card class="w-1/3" [icon]="'fas fa-archive'" [link]="'/archive'">
+      <h2 text>Ders arşivi</h2>
+    </app-card>
+    <app-card
+      class="w-1/3"
+      [icon]="'fas fa-robot'"
+      [link]="'https://t.me/kontenjanbot'"
+      [inappLink]="false"
+    >
+      <h2 text>
+        Kontenjan <br />
+        Telegram botu
+      </h2>
+    </app-card>
+    <app-card class="w-1/3" [icon]="'fas fa-info'">
+      <h2 text>Hakkında</h2>
+    </app-card>
+  </div>
+</div>
+<footer
+  class="text-gray-600 text-sm flex items-center h-8 fixed bottom-0 w-full unselectable"
+>
+  <div class="px-4 w-full flex flex-row">
+    <div class="flex-1"></div>
+    <span> </span>
+  </div>
+</footer>

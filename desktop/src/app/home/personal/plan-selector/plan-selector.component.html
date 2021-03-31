@@ -1,0 +1,52 @@
+<form [formGroup]="planForm">
+  <ng-select
+    class="thin-scrollbar mb-3"
+    [placeholder]="'Fakültenizi seçiniz'"
+    [notFoundText]="'Fakülte bulunamadı'"
+    [clearable]="false"
+    formControlName="faculty"
+  >
+    <ng-option *ngFor="let faculty of faculties" [value]="faculty.abrv">{{
+      faculty.name
+    }}</ng-option>
+  </ng-select>
+
+  <ng-select
+    class="text-sm thin-scrollbar mb-3"
+    [clearable]="false"
+    [loading]="subjectsLoading"
+    [notFoundText]="'Bölüm bulunamadı'"
+    [placeholder]="'Bölümünüzü seçiniz'"
+    formControlName="subject"
+  >
+    <ng-option
+      *ngFor="let subject of subjects | async"
+      [value]="subject.abrv"
+      >{{ subject.name }}</ng-option
+    >
+  </ng-select>
+
+  <ng-select
+    class="text-sm thin-scrollbar mb-3"
+    [clearable]="false"
+    [loading]="termsLoading"
+    [notFoundText]="'Dönem bulunamadı'"
+    [placeholder]="'Kayıt döneminizi seçiniz'"
+    formControlName="term"
+  >
+    <ng-option *ngFor="let term of terms | async" [value]="term.link">{{
+      term.name
+    }}</ng-option>
+  </ng-select>
+
+  <div class="flex flex-row justify-end">
+    <button
+      type="button"
+      class="btn-primary"
+      [disabled]="!planForm.valid"
+      (click)="submit()"
+    >
+      Kaydet
+    </button>
+  </div>
+</form>

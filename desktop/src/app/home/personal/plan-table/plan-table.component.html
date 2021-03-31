@@ -1,0 +1,69 @@
+<div class="flex-grow overflow-auto h-full">
+  <ng-container *ngFor="let group of planService.planData | async">
+    <div class="mb-10 mt-2">
+      <table class="relative w-full text-sm">
+        <thead>
+          <tr>
+            <th
+              colspan="4"
+              class="text-center text-xl font-semibold text-gray-800 py-1"
+            >
+              {{ group.label }}
+            </th>
+          </tr>
+          <tr class="text-left w-full bg-gray-100 text-gray-700 font-medium">
+            <th class="py-2 pl-8 pr-4">Ders kodu</th>
+            <th class="py-2 px-4">Ders ismi</th>
+            <th class="py-2 px-4">Kredi</th>
+            <th class="py-2 pr-8 pl-4 text-right">Alınan not</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <ng-container *ngFor="let item of group.items">
+            <ng-container *ngIf="item.label">
+              <tr
+                class="bg-white"
+                app-optional
+                [data]="item"
+                [grades]="grades"
+                (grade)="setGrade($event, group, item)"
+                (select)="setOptional(group.label, item.label, $event)"
+              ></tr>
+            </ng-container>
+            <tr class="bg-white" *ngIf="!item.label">
+              <td class="pl-8 pr-4 py-2">
+                {{ item.code }}
+              </td>
+              <td class="px-4 py-2">
+                {{ item.name }}
+              </td>
+              <td class="px-4 py-2">
+                {{ item.credits }}
+              </td>
+              <td class="pr-8 pl-4 py-2 float-right">
+                <ng-select
+                  class="w-20 text-sm thin-scrollbar ng-selected"
+                  [items]="grades"
+                  [bindValue]="'value'"
+                  [notFoundText]="''"
+                  [searchable]="false"
+                  (change)="setGrade($event, group, item)"
+                  [(ngModel)]="item.grade"
+                ></ng-select>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <div *ngIf="planService.basePlan | async">
+    <app-opt-group></app-opt-group>
+  </div>
+  <div
+    *ngIf="!(planService.basePlan | async)"
+    class="w-full h-full flex justify-center items-center px-20 text-2xl text-center"
+  >
+    Sol üst kısımdaki menüyü kullanarak ders planını seçebilirsin.
+  </div>
+</div>

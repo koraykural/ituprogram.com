@@ -1,0 +1,57 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$tailwind-blue: (
+  50: #eff6ff,
+  100: #ebf8ff,
+  200: #bee3f8,
+  300: #90cdf4,
+  400: #63b3ed,
+  500: #4299e1,
+  600: #3182ce,
+  700: #2b6cb0,
+  800: #2c5282,
+  900: #1a237e,
+  A100: #8cc6ff,
+  A200: #58a9fc,
+  A400: #3d92fe,
+  A700: #307ffe,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$montserrat-typography: mat-typography-config(
+  $font-family: "Montserrat",
+);
+
+$ituprogram-primary: mat-palette($tailwind-blue);
+$ituprogram-accent: mat-palette($mat-pink, A200, A100, A400);
+$ituprogram-warn: mat-palette($mat-red);
+
+$ituprogram-theme: mat-light-theme(
+  (
+    color: (
+      primary: $ituprogram-primary,
+      accent: $ituprogram-accent,
+      warn: $ituprogram-warn,
+    ),
+  )
+);
+
+@include angular-material-typography($montserrat-typography);
+@include angular-material-theme($ituprogram-theme);

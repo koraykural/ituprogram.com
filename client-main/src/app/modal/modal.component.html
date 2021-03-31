@@ -1,0 +1,175 @@
+<ng-container *ngIf="isModalOpen">
+    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-2">
+                    <h4 class="modal-title">Filtreler</h4>
+                    <button  (click)="closeModal()" type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h5>Dersler</h5>
+                        <div class="flexy">
+                            <div *ngFor="let code of filter.code">
+                                <input type="checkbox" [id]="code.id">
+                                <label [for]="code.id">
+                                    <button type="button"
+                                    (click)="toggleFilter(code.id, 'code')"
+                                    [ngClass]="{'btn-primary': code.checked == true,
+                                    'btn-outline-primary': code.checked != true}" class="btn">
+                                        {{ code.id }} ({{ code.amount }})
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+                        <h5>Günler</h5>
+                        <div class="flexy">
+                            <div *ngFor="let day of filter.days">
+                                <input type="checkbox" [id]="day.id">
+                                <label [for]="day.id">
+                                    <button type="button"
+                                    (click)="toggleFilter(day.id, 'days')"
+                                    [ngClass]="{'btn-primary': day.checked == true,
+                                    'btn-outline-primary': day.checked != true}" class="btn">
+                                        {{ day.id }}
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+                        <h5>Binalar</h5>
+                        <div class="flexy">
+                            <div *ngFor="let building of filter.buildings">
+                                <input type="checkbox" [id]="building.id">
+                                <label [for]="building.id">
+                                    <button type="button"
+                                    (click)="toggleFilter(building.id, 'buildings')"
+                                    [ngClass]="{'btn-primary': building.checked == true,
+                                    'btn-outline-primary': building.checked != true}" class="btn">
+                                        {{ building.id }}
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+                        <h5>Bölüm kısıtlaması</h5>
+                        <div class="flexy">
+                            <input type="checkbox" id="major-restriction">
+                            <label for="major-restriction">
+                                <ng-container *ngIf="filter.major">
+                                    <button type="button"
+                                    class="btn btn-primary"
+                                    (click)="toggleFilter('major', 'major')"
+                                    >
+                                        Sadece {{ major }}
+                                    </button>        
+                                </ng-container>
+                                <ng-container *ngIf="!filter.major">
+                                    <button type="button"
+                                    class="btn btn-outline-primary"
+                                    (click)="toggleFilter('major', 'major')"
+                                    >
+                                        Bütün dersler
+                                    </button>
+                                </ng-container>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pt-2 pb-2">
+                    <button (click)="closeModal()" type="button" class="btn btn-secondary">Tamam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="classSelectModal">
+    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-2">
+                    <h4 class="modal-title">Ders seçimi (2/3)</h4>
+                </div>
+                <div class="modal-body" style="padding-bottom: 0;">
+                    <div *ngIf="classPage == 1" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-class-1.svg" class="img-fluid rounded">
+                    </div>
+                    <div *ngIf="classPage == 2" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-class-2.svg" class="img-fluid rounded">
+                    </div>
+                    <div *ngIf="classPage == 3" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-class-3.svg" class="img-fluid rounded">
+                    </div>
+                    <div *ngIf="classPage == 4" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-class-4.svg" class="img-fluid rounded">
+                    </div>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center unselectable mb-0">
+                            <li (click)="decClassPage()" [ngClass]="{'disabled': classPage == 1}" class="page-item">
+                                <span class="page-link" aria-hidden="true">&laquo;</span>
+                            </li>
+                            <li (click)="classPage = 1" [ngClass]="{'active': classPage == 1}" class="page-item"><span class="page-link">1</span></li>
+                            <li (click)="classPage = 2" [ngClass]="{'active': classPage == 2}" class="page-item"><span class="page-link">2</span></li>
+                            <li (click)="classPage = 3" [ngClass]="{'active': classPage == 3}" class="page-item"><span class="page-link">3</span></li>
+                            <li (click)="classPage = 4" [ngClass]="{'active': classPage == 4}" class="page-item"><span class="page-link">4</span></li>
+                            <li (click)="incClassPage()" [ngClass]="{'disabled': classPage == 4}" class="page-item">
+                                <span class="page-link" aria-hidden="true">&raquo;</span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="classSelectModal = false" type="button" class="btn btn-primary">Anladım</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="createProgramModal">
+    <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-2">
+                    <h4 class="modal-title">Program oluşturma (3/3)</h4>
+                </div>
+                <div class="modal-body" style="padding-bottom: 0;">
+                    <div *ngIf="createPage == 1" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-create-1.svg" class="img-fluid rounded">
+                    </div>
+                    <div *ngIf="createPage == 2" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-create-2.svg" class="img-fluid rounded">
+                    </div>
+                    <div *ngIf="createPage == 3" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-create-3.svg" class="img-fluid rounded">
+                    </div>
+                    <div *ngIf="createPage == 4" [style]="'min-height: '+ imageHeight +'px;'">
+                        <img src="../../../assets/tutorial-create-4.svg" class="img-fluid rounded">
+                    </div>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center unselectable mb-0">
+                            <li (click)="decCreatePage()" [ngClass]="{'disabled': createPage == 1}" class="page-item">
+                                <span class="page-link" aria-hidden="true">&laquo;</span>
+                            </li>
+                            <li (click)="createPage = 1" [ngClass]="{'active': createPage == 1}" class="page-item"><span class="page-link">1</span></li>
+                            <li (click)="createPage = 2" [ngClass]="{'active': createPage == 2}" class="page-item"><span class="page-link">2</span></li>
+                            <li (click)="createPage = 3" [ngClass]="{'active': createPage == 3}" class="page-item"><span class="page-link">3</span></li>
+                            <li (click)="createPage = 4" [ngClass]="{'active': createPage == 4}" class="page-item"><span class="page-link">4</span></li>
+                            <li (click)="incCreatePage()" [ngClass]="{'disabled': createPage == 4}" class="page-item">
+                                <span class="page-link" aria-hidden="true">&raquo;</span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="createProgramModal = false" type="button" class="btn btn-primary">Anladım</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<div *ngIf="isModalOpen || classSelectModal || createProgramModal" class="modal-backdrop fade show"></div>

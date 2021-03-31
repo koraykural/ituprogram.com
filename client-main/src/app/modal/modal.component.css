@@ -1,0 +1,30 @@
+input[type=checkbox] {
+    display: none;
+}
+
+.btn-outline-primary:hover {
+    background: none;
+    color: blue;
+}
+
+.flexy {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+}
+.flexy div {
+    margin-right: 10px;
+}
+
+
+.btn-outline-primary:hover {
+    background-color: rgba(2, 117, 216, 0.1);
+    color: rgba(2, 117, 216, 1);
+}
+
+li {
+    cursor: pointer;
+}
+li.disabled {
+    cursor: default;
+}

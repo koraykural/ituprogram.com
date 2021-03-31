@@ -1,0 +1,123 @@
+<div *ngIf="showData" class="flex-grow overflow-auto h-full">
+  <ng-container *ngFor="let group of programService.planData | async">
+    <div class="mb-10 mt-2">
+      <table class="relative w-full text-sm">
+        <thead>
+          <tr>
+            <th
+              colspan="5"
+              class="text-center text-xl font-semibold text-gray-800 py-1"
+            >
+              {{ group.label }}
+            </th>
+          </tr>
+          <tr class="text-left w-full bg-gray-100 text-gray-700 font-medium">
+            <th class="py-2 pl-8 pr-4 w-8"></th>
+            <th class="py-2 px-4">Ders kodu</th>
+            <th class="py-2 px-4">Ders ismi</th>
+            <th class="py-2 px-4">Kredi</th>
+            <th class="py-2 pr-8 pl-4 text-right">Alınan not</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <ng-container *ngFor="let item of group.items">
+            <ng-container
+              *ngIf="item.isSubGroup && item.grade <= programService.maxGrade"
+            >
+              <tr class="bg-white">
+                <td colspan="3" class="pl-8 pr-4 py-2">
+                  <ng-select
+                    class="text-sm thin-scrollbar"
+                    [items]="item.subItems"
+                    [bindLabel]="'name'"
+                    [bindValue]="'code'"
+                    [searchFn]="itemSearchFn"
+                    [notFoundText]="'Seçmeli ders bulunamadı'"
+                    [placeholder]="item.name"
+                    [multiple]="true"
+                    [clearable]="false"
+                    [closeOnSelect]="false"
+                  >
+                    <ng-template
+                      ng-option-tmp
+                      let-item="item"
+                      let-item$="item$"
+                      let-index="index"
+                    >
+                      <div
+                        class="flex flex-row items-center -my-2 py-2"
+                        [ngClass]="item.isOpened ? '' : 'cursor-default'"
+                      >
+                        <input
+                          [disabled]="!item.isOpened"
+                          id="item-{{ index }}"
+                          type="checkbox"
+                          [ngModel]="item$.selected"
+                        />
+                        <div class="px-4 w-24">
+                          {{ item.code }}
+                        </div>
+                        <div class="pl-4">
+                          {{ item.name }}
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </td>
+                <td class="px-4 py-2">
+                  {{ item.credits }}
+                </td>
+                <td class="pr-8 pl-4 py-2 float-right">
+                  {{ letterGrade(item.grade) }}
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container
+              *ngIf="
+                !item.isSubGroup &&
+                item.grade <= programService.maxGrade &&
+                (programService.isNotOpenedHidden ? item.isOpened : true)
+              "
+            >
+              <tr
+                (click)="rowClick(item)"
+                class="unselectable"
+                [ngClass]="
+                  item.selected
+                    ? 'bg-blue-200 hover:bg-blue-300 hover:bg-opacity-75 cursor-pointer'
+                    : item.isOpened
+                    ? 'bg-white hover:bg-blue-100 cursor-pointer'
+                    : 'bg-gray-400 cursor-default'
+                "
+              >
+                <td class="pl-8 pr-4 py-2">
+                  <mat-checkbox
+                    (click)="$event.preventDefault()"
+                    [disableRipple]="true"
+                    [color]="'primary'"
+                    [disabled]="!item.isOpened"
+                    [checked]="item.selected"
+                  ></mat-checkbox>
+                </td>
+                <td class="px-4 py-2">
+                  {{ item.code }}
+                </td>
+                <td class="px-4 py-2">
+                  {{ item.name }}
+                </td>
+                <td class="px-4 py-2">
+                  {{ item.credits }}
+                </td>
+                <td class="pr-8 pl-4 py-2">
+                  <span class="float-right" *ngIf="item.grade !== null">
+                    {{ letterGrade(item.grade) }}
+                  </span>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

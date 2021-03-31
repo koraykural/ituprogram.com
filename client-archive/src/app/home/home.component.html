@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="text-center fixed-top pt-1 pb-1 bg-white">
+    <a
+      href="https://ituprogram.com"
+      target="_blank"
+      class="logo text-primary font-weight-bold"
+    >
+      ituprogram.com
+    </a>
+  </div>
+  <div style="height: 42px;"></div>
+
+  <div class="table-responsive">
+    <table
+      class="table table-hover table-striped table-sm unselectable mb-5"
+      *ngIf="!errorMsg"
+    >
+      <thead>
+        <tr>
+          <ng-container *ngFor="let header of tableHeaders">
+            <th *ngIf="header.visible">
+              {{ header.shown }}
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let class of classes">
+          <td *ngIf="tableHeaders[0].visible" class="nobr">
+            {{ class.code }}
+          </td>
+          <td *ngIf="tableHeaders[1].visible" class="nobr">
+            {{
+              class.name.length > 30
+                ? (class.name | slice: 0:20) + ".."
+                : class.name
+            }}
+          </td>
+          <td *ngIf="tableHeaders[2].visible">{{ class.lecturer }}</td>
+          <td
+            *ngIf="tableHeaders[3].visible"
+            style="word-spacing: 100vw; max-width: 100px;"
+          >
+            {{ class.days | convertComma }}
+          </td>
+          <td
+            *ngIf="tableHeaders[4].visible"
+            style="word-spacing: 100vw; max-width: 100px;"
+          >
+            {{ class.hours | convertComma }}
+          </td>
+          <td
+            *ngIf="tableHeaders[5].visible"
+            style="word-spacing: 100vw; max-width: 100px;"
+          >
+            {{ class.buildings | convertComma }}
+          </td>
+          <td *ngIf="tableHeaders[6].visible" style="max-width: 80px;">
+            {{ class.enrolled }}
+          </td>
+          <td *ngIf="tableHeaders[7].visible" style="max-width: 80px;">
+            {{ class.capacity }}
+          </td>
+          <td *ngIf="tableHeaders[8].visible">
+            {{ class.restricts | convertComma }}
+          </td>
+          <td *ngIf="tableHeaders[9].visible" style="max-width: 80px;">
+            {{ class.crn }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Placeholder -->
+  <div class="d-flex justify-content-center">
+    <div
+      *ngIf="loading"
+      class="spinner-border mt-5 mb-5"
+      style="width: 3rem; height: 3rem;"
+      role="status"
+    >
+      <span class="sr-only">Dersler veritabanından alınıyor...</span>
+    </div>
+  </div>
+
+  <div class="text-center mt-3" *ngIf="errorMsg">
+    {{ errorMsg }}
+  </div>
+  <div id="bottom-margin" style="height: 100px;"></div>
+
+  <div
+    class="form fixed-bottom bg-white border-top d-flex flex-row justify-content-center align-items-center"
+  >
+    <div class="flex-fill ml-1" style="max-width: 600px;">
+      <div class="mb-2 mt-2">
+        <select
+          class="custom-select"
+          (change)="termSelect($event.target.value)"
+        >
+          <option value="">Dönem seçiniz</option>
+          <option *ngFor="let term of terms" [value]="term.value">{{
+            term.name
+          }}</option>
+        </select>
+      </div>
+      <div class="mb-2">
+        <select
+          class="custom-select"
+          (change)="codeLetterSelect($event.target.value)"
+        >
+          <option value="">Ders kodunu seçiniz</option>
+          <option
+            *ngFor="let codeLetter of codeLetters"
+            [value]="codeLetter.value"
+            >{{ codeLetter.value }}</option
+          >
+        </select>
+      </div>
+    </div>
+    <div class="ml-1 mr-1">
+      <button
+        class="btn btn-sm btn-primary pt-3 pb-3 pr-2 pl-2"
+        (click)="openModal()"
+      >
+        <img
+          src="/assets/filter.png"
+          alt="Sütunları filtrele"
+          style="height: 16px; width: 16px;"
+        />
+      </button>
+    </div>
+  </div>
+</div>

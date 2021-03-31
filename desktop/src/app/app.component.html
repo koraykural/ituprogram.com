@@ -1,0 +1,49 @@
+<header
+  *ngIf="isWindows"
+  class="bg-blue-600 text-white shadow flex items-center h-8 fixed top-0 w-full"
+  style="-webkit-app-region: drag"
+>
+  <div class="flex flex-row w-full h-full pl-2">
+    <div class="flex flex-row items-center">
+      <img
+        src="assets/icons/favicon.256x256.png"
+        alt="Logo"
+        class="h-4 mr-2 unselectable"
+        style="-webkit-user-drag: none"
+      />
+      <h1 class="font-medium text-sm unselectable">ituprogram.com</h1>
+    </div>
+    <div class="flex-1"></div>
+    <div class="flex items-center" style="-webkit-app-region: no-drag">
+      <button class="w-10 h-8 hover:bg-blue-700" (click)="win.minimize()">
+        <i class="fas fa-window-minimize text-xs"></i>
+      </button>
+      <button
+        class="w-10 h-8 hover:bg-blue-700"
+        *ngIf="!isMaximized"
+        (click)="win.maximize()"
+      >
+        <i class="far fa-window-maximize text-xs"></i>
+      </button>
+      <button
+        class="w-10 h-8 hover:bg-blue-700"
+        *ngIf="isMaximized"
+        (click)="win.unmaximize()"
+      >
+        <i class="far fa-window-restore text-xs"></i>
+      </button>
+      <button class="w-10 h-8 hover:bg-red-700" (click)="win.close()">
+        <i class="fas fa-times text-sm"></i>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="h-8"></div>
+
+<div
+  class="overflow-y-auto overflow-x-hidden"
+  style="height: calc(100vh - 2rem)"
+>
+  <!-- [@routeAnimations]="prepareRoute(outlet)" -->
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

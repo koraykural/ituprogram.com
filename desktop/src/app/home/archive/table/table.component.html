@@ -1,0 +1,81 @@
+<!-- component -->
+<div class="flex-grow overflow-auto h-full">
+  <table class="relative w-full striped text-sm">
+    <thead>
+      <tr class="w-full">
+        <ng-container
+          *ngFor="let header of archiveService.headers | async | keyvalue"
+        >
+          <th
+            class="sticky text-left top-0 py-2 px-4 bg-gray-700 text-gray-200 font-semibold"
+            *ngIf="header.value.visible"
+          >
+            {{ header.value.shown }}
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody class="divide-y">
+      <ng-container *ngFor="let item of archiveService.items | async">
+        <tr *ngIf="!item.hidden">
+          <ng-container
+            *ngFor="let header of archiveService.headers | async | keyvalue"
+          >
+            <td
+              class="px-4 py-2"
+              *ngIf="header.value.visible"
+              [ngClass]="{
+                'whitespace-no-wrap': header.value.identifier === 'code',
+                'px-2': shortCells.includes(header.value.identifier),
+                'restrict-cell': header.value.identifier === 'restricts'
+              }"
+            >
+              <ng-container
+                *ngIf="
+                  ['buildings', 'days', 'hours'].includes(
+                    header.value.identifier
+                  )
+                "
+              >
+                <div
+                  [innerHTML]="item[header.value.identifier] | convertLineBreak"
+                ></div>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  !['buildings', 'days', 'hours'].includes(
+                    header.value.identifier
+                  )
+                "
+              >
+                <div>
+                  {{ item[header.value.identifier] | convertComma }}
+                </div>
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div
+    *ngIf="(archiveService.items | async).length < 1"
+    style="height: calc(100% - 120px)"
+    class="w-full flex justify-center items-center px-20 text-2xl text-center"
+  >
+    <div *ngIf="archiveService.loading | async">
+      <i
+        class="fas fa-spinner fa-pulse text-blue-600"
+        style="font-size: 8rem"
+      ></i>
+    </div>
+    <div *ngIf="archiveService.errorHappened | async">
+      Aranılan kriterlerde dersler bulunamadı.
+      <br />
+      Bir hata da olmuş olabilir. <i class="far fa-meh"></i>
+    </div>
+    <div *ngIf="archiveService.isBeforeFirstSearch | async">
+      Arama yapmak için soldaki menüden dönem ve ders kodu seçiniz.
+    </div>
+  </div>
+</div>

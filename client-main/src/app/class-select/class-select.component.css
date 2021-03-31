@@ -1,0 +1,45 @@
+.table {
+    margin: auto;
+    max-width: 754px;
+}
+.table tbody tr.pointer:hover {
+    cursor: pointer;
+}
+.select-all:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+.pointer {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    table {
+        font-size: 0.8em;
+    }
+}
+
+button:disabled {
+    cursor: default;
+}
+
+.select-all.table-primary:hover {
+    background-color: #9fcdff;
+}
+
+input[type=checkbox] {
+    display: inline;
+}
+
+.table-active:hover td {
+    cursor: default;
+}
+.table-active:hover th {
+    cursor: default;
+}
+.table-active:hover label {
+    cursor: default;
+}
+
+.white-text {
+    color: white;
+}

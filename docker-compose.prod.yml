@@ -1,0 +1,36 @@
+version: "3"
+services:
+  api:
+    image: koraykural/ituprogram-api
+    ports:
+      - "3000:3000"
+    networks:
+      - nginx-routing
+  update-service:
+    image: koraykural/ituprogram-update-service
+  client-main:
+    image: koraykural/ituprogram-client-main
+    ports:
+      - "4200:4200"
+    networks:
+      - nginx-routing
+  client-archive:
+    image: koraykural/ituprogram-client-archive
+    ports:
+      - "4201:4201"
+    networks:
+      - nginx-routing
+  nginx:
+    image: koraykural/ituprogram-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - client-main
+      - client-archive
+    restart: always
+    networks:
+      - nginx-routing
+networks:
+  nginx-routing:
+    driver: bridge

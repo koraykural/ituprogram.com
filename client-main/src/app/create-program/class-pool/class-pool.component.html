@@ -1,0 +1,37 @@
+<div class="table-responsive pool-table" [style]="'height: ' + poolTableMaxHeight + 'px;'">
+    <table class="table table-hover table-sm unselectable">
+        <thead>
+            <tr>
+                <th></th>
+                <th
+                *ngFor="let header of tableHeaders"
+                (click)="sort($event.target.innerHTML)"
+                [ngClass]="{'table-active': header.identifier === sortedBy}">
+                    {{ header.shown }}<span *ngIf="header.identifier === sortedBy">&darr;</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+            *ngFor="let class of classes"
+            [ngClass]="{'table-primary': true === class.selected}"
+            [id]="class.crn" (click)="rowClick(class.crn)">
+            <ng-container *ngIf="isNotFiltered(class)">
+                <th scope="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" disabled [checked]="class.selected">
+                        <label class="custom-control-label" for="customCheck1"></label>
+                    </div>
+                </th>
+                <td class="nobr">{{ class.code }}</td>
+                <td class="nobr">{{ (class.name.length>20)? (class.name | slice:0:20)+'..':(class.name) }}</td>
+                <td>{{ class.days | convertComma }}</td>
+                <td>{{ class.hours | convertComma }}</td>
+                <td>{{ class.buildings | convertComma }}</td>
+                <td>{{ class.crn }}</td>
+            </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

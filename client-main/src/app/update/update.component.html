@@ -1,0 +1,59 @@
+<ng-container *ngIf="!err">
+  <div class="container-sm">
+    <h2 class="text-center mt-5 mb-4">Bakalım veriler güncel miymiş...</h2>
+    <div class="align-self-center class-select">
+      <div>
+        <table class="table table-hover table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th>Güncellenen veri</th>
+              <th>Son güncelleme denemesi sonucu</th>
+              <th class="text-right">Son başarılı güncellenme tarihi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Ders planları</th>
+              <td>{{ update.plans.situation }}</td>
+              <td class="text-right">
+                {{ update.plans.last_update | date: "d MMMM EEEE, HH.mm" }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Açılan dersler listesi</th>
+              <td>
+                {{ update.opened_classes.situation }}
+              </td>
+              <td class="text-right">
+                {{
+                  update.opened_classes.last_update | date: "d MMMM EEEE, HH.mm"
+                }}
+              </td>
+            </tr>
+            <tr *ngFor="let class of update.classes">
+              <th scope="row">{{ class.code }} kodlu dersler</th>
+              <td>{{ class.situation }}</td>
+              <td class="text-right">
+                {{ class.last_update | date: "d MMMM EEEE, HH.mm" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="err" class="container-sm text-center">
+  <h1 class="text-center mt-5">Oops!</h1>
+  <div style="max-width: 600px; margin: 0 auto">
+    <h5 class="mt-4">Güncelleme bilgileri alınırken bir hata oluştu.</h5>
+    <h5 class="mt-4">
+      Sistemin güncel olduğunu umarak programını oluşturmaya başlayabilirsin ya
+      da bekleyebilirsin.
+    </h5>
+  </div>
+</div>
+<div class="text-center mb-5">
+  <button routerLink="/" class="btn btn-lg btn-secondary mt-3">Geri dön</button>
+</div>

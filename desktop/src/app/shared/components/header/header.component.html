@@ -1,0 +1,57 @@
+<div class="h-12"></div>
+<div
+  class="h-12 w-full fixed bg-blue-600 text-white flex flex-row items-center px-4 unselectable"
+  style="top: 2rem"
+>
+  <div style="flex: 1" class="h-full py-1">
+    <a
+      [matTooltip]="backDescription"
+      matTooltipPosition="below"
+      matTooltipShowDelay="500"
+      *ngIf="backLink"
+      [routerLink]="backLink"
+      class="rounded h-10 px-6 py-2 flex justify-center items-center unselectable float-left"
+      style="min-width: 5rem"
+      [ngClass]="{
+        'hover:bg-blue-700': backTheme === undefined,
+        'hover:bg-red-700': backTheme === 'danger'
+      }"
+      style="-webkit-user-drag: none"
+    >
+      <i
+        *ngIf="!backNoIcon"
+        class="fas fa-long-arrow-alt-left text-3xl"
+        [ngClass]="backText ? 'mr-4' : ''"
+      ></i>
+      <span *ngIf="backText" class="font-medium">{{ backText }}</span>
+    </a>
+  </div>
+  <div style="flex: 1">
+    <h1 class="text-center font-medium text-2xl">
+      <ng-content></ng-content>
+    </h1>
+  </div>
+  <div style="flex: 1" class="h-full py-1">
+    <a
+      [matTooltip]="nextDescription"
+      matTooltipPosition="below"
+      matTooltipShowDelay="500"
+      *ngIf="nextLink"
+      [routerLink]="nextLink"
+      class="rounded h-10 px-6 py-2 flex justify-center items-center unselectable float-right"
+      style="min-width: 5rem"
+      [ngClass]="{
+        'hover:bg-blue-700': nextTheme === undefined,
+        'hover:bg-red-700': nextTheme === 'danger'
+      }"
+      style="-webkit-user-drag: none"
+    >
+      <span *ngIf="nextText" class="font-medium">{{ nextText }}</span>
+      <i
+        *ngIf="!nextNoIcon"
+        class="fas fa-long-arrow-alt-right text-3xl"
+        [ngClass]="nextText ? 'ml-4' : ''"
+      ></i>
+    </a>
+  </div>
+</div>

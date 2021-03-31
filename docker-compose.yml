@@ -1,0 +1,69 @@
+version: "3"
+services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server:/usr/src/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - nginx-routing
+  update-service:
+    build:
+      context: ./update-service
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./update-service:/usr/src/app
+      - /app/node_modules
+    env_file: .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  client-main:
+    build:
+      context: ./client-main
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client-main:/usr/src/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - nginx-routing
+  client-archive:
+    build:
+      context: ./client-archive
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client-archive:/usr/src/app
+      - /app/node_modules
+    ports:
+      - "4201:4201"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - nginx-routing
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3050:80"
+      - "3060:90"
+    depends_on:
+      - api
+      - client-main
+      - client-archive
+    restart: always
+    networks:
+      - nginx-routing
+networks:
+  nginx-routing:
+    driver: bridge

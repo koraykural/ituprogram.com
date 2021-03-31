@@ -1,0 +1,23 @@
+table th[scope=row] {
+    min-width: 60px;
+}
+
+table th[scope=col] {
+    min-width: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+    table {
+        font-size: 0.8em;
+    }
+    .table-sm th, .table-sm td {
+        padding: 0.2em;
+    }
+    table th[scope=row] {
+        min-width: 50px;
+    }
+    
+    table th[scope=col] {
+        min-width: 75px;
+    }
+}

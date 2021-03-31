@@ -1,0 +1,18 @@
+<table class="text-left">
+  <tr>
+    <th class="pr-8">Toplam Kredi</th>
+    <td>{{ planService.statistics.totalCredits }}</td>
+  </tr>
+  <tr>
+    <th class="pr-8">Başarılan Kredi</th>
+    <td>{{ planService.statistics.achievedCredits }}</td>
+  </tr>
+  <!-- <tr>
+    <th class="pr-8">Kalan Kredi</th>
+    <td>{{ planService.remainingCredits }}</td>
+  </tr> -->
+  <tr>
+    <th class="pr-8">GPA</th>
+    <td>{{ planService.statistics.GPA | number: "1.1-2" }}</td>
+  </tr>
+</table>

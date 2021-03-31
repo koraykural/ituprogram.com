@@ -1,0 +1,73 @@
+<!-- <label (click)="courseSelect.open()"> Görünür Dersler: </label>
+<ng-select
+  #courseSelect
+  [items]="programService.selectedCodes"
+  [multiple]="true"
+  [searchable]="false"
+  [clearable]="false"
+  [closeOnSelect]="false"
+  [(ngModel)]="filterService.visibleCodes"
+>
+  <ng-template
+    ng-option-tmp
+    let-item="item"
+    let-item$="item$"
+    let-index="index"
+  >
+    <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
+    {{ item$.label }}
+  </ng-template>
+</ng-select>
+<div class="my-6"></div> -->
+<mat-slide-toggle
+  class="block unselectable text-gray-900"
+  [color]="'primary'"
+  [checked]="filterService.hideRestricted | async"
+  [disableRipple]="true"
+  (change)="filterService.toggleRestricted()"
+  [matTooltip]="
+    'Bölüm kısıtlamarı listesinde bölümünüz yer almıyorsa ders gizlenir.'
+  "
+>
+  Bölüm kısıtlamalarını gizle
+</mat-slide-toggle>
+
+<div class="my-4"></div>
+<mat-slide-toggle
+  class="block unselectable text-gray-900"
+  [color]="'primary'"
+  [checked]="filterService.hideConflicts"
+  [disableRipple]="true"
+  (change)="filterService.toggleConflicted()"
+  [matTooltip]="
+    'Gün ve saatleri, zaten seçilmiş bir dersinkiyle çakışıyorsa ders gizlenir.'
+  "
+>
+  Çakışanları gizle
+</mat-slide-toggle>
+
+<div class="my-4"></div>
+<mat-slide-toggle
+  class="block unselectable text-gray-900"
+  [color]="'primary'"
+  [checked]="filterService.hideDuplicates"
+  [disableRipple]="true"
+  (change)="filterService.toggleDuplicated()"
+  [matTooltip]="
+    'Aynı koda sahip başka bir ders zaten seçilmiş ise ders gizlenir.'
+  "
+>
+  Alternatifleri gizle
+</mat-slide-toggle>
+
+<div class="my-4"></div>
+<mat-slide-toggle
+  class="block unselectable text-gray-900"
+  [color]="'primary'"
+  [checked]="sortService.smartFilter | async"
+  [disableRipple]="true"
+  (change)="sortService.smartFilter.next(!sortService.smartFilter.value)"
+  [matTooltip]="'Daha az alternatifi bulunan dersler yukarıda sıralanır.'"
+>
+  Akıllı sıralama
+</mat-slide-toggle>

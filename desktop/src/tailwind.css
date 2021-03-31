@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"); /* Montserrat font */
+@import url("./assets/css/all.min.css"); /* Fontawesome */
+@import "~@ng-select/ng-select/themes/default.theme.css"; /* Form select */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* -------------------------------- Universal ------------------------------- */
+html body {
+  font-family: "Montserrat", sans-serif;
+  @apply overflow-x-hidden box-border bg-gray-200;
+  -webkit-user-drag: none;
+}
+html body *:focus {
+  @apply outline-none;
+}
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+/* ------------------------------- Scrollbars ------------------------------- */
+::-webkit-scrollbar {
+  @apply w-3;
+}
+::-webkit-scrollbar-button {
+  @apply hidden;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-300 rounded-sm;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-sm transition-all duration-100;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500 shadow;
+}
+::-webkit-scrollbar-track-piece {
+  @apply bg-gray-300 rounded-sm;
+}
+::-webkit-scrollbar-corner {
+  @apply bg-gray-300;
+}
+.thin-scrollbar ::-webkit-scrollbar {
+  @apply w-2;
+}
+
+/* ------------------------------ Striped table ----------------------------- */
+table.striped tbody tr:nth-child(even) {
+  @apply bg-gray-300;
+}
+
+/* ----------------------------- Primary button ----------------------------- */
+.btn-primary {
+  @apply px-6 py-2 bg-blue-500 text-white rounded;
+}
+.btn-primary:disabled {
+  @apply bg-blue-300 pointer-events-none cursor-default;
+}
+.btn-primary:disabled:hover {
+  @apply bg-blue-300;
+}
+.btn-primary:hover {
+  @apply bg-blue-600;
+}

@@ -1,0 +1,31 @@
+<ng-container *ngIf="isOpen">
+  <div class="modal fade show" tabindex="-1" style="display: block;" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+              <div class="modal-header pb-2">
+                  <h4 class="modal-title">Tablo sütunları seçimi</h4>
+              </div>
+              <div class="modal-body" style="padding-bottom: 0;">
+                  <div class="flexy">
+                      <div *ngFor="let header of headers">
+                          <input type="checkbox" [id]="header.identifier">
+                          <label [for]="header.identifier">
+                              <button type="button"
+                              (click)="toggleHeader(header.identifier)"
+                              [ngClass]="{'btn-primary': header.visible == true,
+                              'btn-outline-primary': header.visible != true}" class="btn">
+                                  {{ header.shown }}
+                              </button>
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button (click)="close()" type="button" class="btn btn-primary">Kaydet</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</ng-container>
+
+<div *ngIf="isOpen" class="modal-backdrop fade show"></div>

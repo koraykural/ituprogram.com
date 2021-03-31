@@ -1,0 +1,68 @@
+<div class="p-4 bg-gray-300 h-full w-full text-sm">
+  <p class="mb-8">
+    Dönem ve ders kodunu seçerek geçmişte açılan derslerle ilgili verilere
+    ulaşabilirsiniz.
+  </p>
+
+  <ng-select
+    class="thin-scrollbar mb-4"
+    [placeholder]="'Dönem seçiniz'"
+    [searchable]="false"
+    [clearable]="false"
+    [notFoundText]="'Dönem bulunamadı'"
+    (change)="this.selectedTerm.next($event)"
+  >
+    <ng-option *ngFor="let term of terms" [value]="term.value">{{
+      term.name
+    }}</ng-option>
+  </ng-select>
+
+  <ng-select
+    class="text-sm thin-scrollbar mb-8"
+    [clearable]="false"
+    [placeholder]="'Ders kodunu seçiniz'"
+    [notFoundText]="'Ders kodu bulunamadı'"
+    (change)="this.selectedCode.next($event)"
+  >
+    <ng-option
+      *ngFor="let codeLetter of codeLetters"
+      [value]="codeLetter.value"
+      >{{ codeLetter.value }}</ng-option
+    >
+  </ng-select>
+
+  <div class="border-t border-gray-400 mb-8"></div>
+
+  <label (click)="headerSelect.open()"> Görünür sütunlar: </label>
+  <ng-select
+    #headerSelect
+    [items]="archiveService.headers | async"
+    [multiple]="true"
+    bindLabel="shown"
+    [searchable]="false"
+    [clearable]="false"
+    [closeOnSelect]="false"
+    [(ngModel)]="headersOutput"
+    (change)="headersChange($event)"
+  >
+    <ng-template
+      ng-option-tmp
+      let-item="item"
+      let-item$="item$"
+      let-index="index"
+    >
+      <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
+      {{ item$.label }}
+    </ng-template>
+  </ng-select>
+  <div class="my-8"></div>
+  <label>
+    Akıllı Filtre:
+    <input
+      class="block p-2 border focus:shadow text-gray-700 rounded w-full"
+      style="border-color: #ccc"
+      type="text"
+      (input)="archiveService.filter($event.target.value)"
+    />
+  </label>
+</div>
