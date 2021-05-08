@@ -6,8 +6,10 @@ services:
       - "3000:3000"
     networks:
       - nginx-routing
+    env_file: .env
   update-service:
     image: koraykural/ituprogram-update-service
+    env_file: .env
   client-main:
     image: koraykural/ituprogram-client-main
     ports:
