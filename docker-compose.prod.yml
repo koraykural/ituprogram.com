@@ -32,7 +32,7 @@ services:
       - client-main
       - client-archive
     volumes:
-      - /etc/letsencrypt/live/ituprogram.com:/etc/letsencrypt/live/ituprogram.com
+      - /etc/letsencrypt:/etc/letsencrypt
     restart: always
     networks:
       - nginx-routing
