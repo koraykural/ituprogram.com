@@ -33,7 +33,6 @@ services:
       - client-archive
     volumes:
       - /etc/letsencrypt/live/ituprogram.com:/etc/letsencrypt/live/ituprogram.com
-      - /etc/letsencrypt/live/ituprogram.com:/etc/letsencrypt/live/ituprogram.com
     restart: always
     networks:
       - nginx-routing
