@@ -7,9 +7,11 @@ services:
     networks:
       - nginx-routing
     env_file: .env
+    restart: on-failure
   update-service:
     image: koraykural/ituprogram-update-service
     env_file: .env
+    restart: on-failure
   client-main:
     image: koraykural/ituprogram-client-main
     ports:

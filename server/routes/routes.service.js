@@ -176,7 +176,7 @@ const getCode = (letter) => {
 const archive = (term, codeLetter) => {
   return new Promise((resolve, reject) => {
     ArchiveSchema.findOne({ term, codeLetter }, (err, doc) => {
-      if (err) {
+      if (err || !doc) {
         reject(err);
         return;
       }
