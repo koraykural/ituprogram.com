@@ -1,0 +1,84 @@
+<div class="h-full w-full p-4 bg-gray-200 border-gray-300">
+  <div class="float-right mb-4">
+    <button
+      mat-icon-button
+      color="accent"
+      *ngIf="!(isBigScreen$ | async)"
+      mat-raised-button
+      (click)="drawerClose.emit()"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  </div>
+  <form [formGroup]="f">
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Dönem</mat-label>
+      <input
+        type="text"
+        placeholder="Dönem"
+        matInput
+        formControlName="term"
+        [matAutocomplete]="termAuto"
+        #termInput
+      />
+      <mat-autocomplete
+        #termAuto="matAutocomplete"
+        (opened)="f.controls.term.setValue('')"
+        (optionSelected)="termInput.blur()"
+      >
+        <mat-option
+          *ngFor="let term of filteredTerms$ | async"
+          [value]="term.name"
+        >
+          {{ term.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Ders Kodu</mat-label>
+      <input
+        type="text"
+        placeholder="Ders Kodu"
+        matInput
+        formControlName="code"
+        [matAutocomplete]="codeAuto"
+        #codeInput
+      />
+      <mat-autocomplete
+        #codeAuto="matAutocomplete"
+        (opened)="f.controls.code.setValue('')"
+        (optionSelected)="codeInput.blur()"
+      >
+        <mat-option *ngFor="let code of filteredCodes$ | async" [value]="code">
+          {{ code }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
+  <div class="border-b border-t border-gray-300 py-2 mb-4">
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let header of headersList$ | async"
+        [color]="header.selected ? 'primary' : 'accent'"
+        [selected]="header.selected"
+        (click)="visibleHeadersChange(header)"
+      >
+        {{ header.shown }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <div class="">
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Filtre</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Filtre"
+        (input)="filterInput($event)"
+      />
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="h-full flex flex-col items-center">
+  <div
+    class="rounded bg-white sm:shadow sm:px-4 pt-4 mt-4 max-w-screen-md w-full"
+    *ngFor="let label of groupLabels$ | async; let index = index"
+  >
+    <h2 class="font-medium text-xl mb-2 text-center">{{ label }}</h2>
+    <app-plan-group-table [index]="index"></app-plan-group-table>
+  </div>
+  <!-- TODO: <div
+    class="rounded bg-white shadow sm:px-4 py-4 mt-4 max-w-screen-md w-full"
+  ></div> -->
+  <div
+    class="
+      fixed
+      bottom-0
+      rounded
+      bg-white
+      shadow-lg
+      sm:px-4
+      py-4
+      sm:my-2
+      max-w-screen-sm
+      border
+      w-full
+      z-30
+    "
+  >
+    <div class="flex justify-center">
+      <mat-checkbox
+        [color]="'primary'"
+        [checked]="hideNotOpened"
+        (change)="toggleHideNotOpened($event.checked)"
+      >
+        Açılmamış dersleri gizle
+      </mat-checkbox>
+    </div>
+    <div class="flex flex-row justify-center mt-4">
+      <div class="mr-2">
+        <a routerLink="/quick/plan" mat-raised-button color="warn">GERİ DÖN</a>
+      </div>
+      <div>
+        <a
+          routerLink="/quick/program"
+          mat-raised-button
+          color="primary"
+          [disabled]="disableContinue$ | async"
+          [ngClass]="{ 'pointer-events-none': disableContinue$ | async }"
+          >DEVAM ET</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="my-2 sm:my-3" style="visibility: hidden; height: 108px"></div>
+</div>

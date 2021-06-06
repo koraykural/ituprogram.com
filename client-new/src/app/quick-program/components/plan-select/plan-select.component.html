@@ -1,0 +1,65 @@
+<div class="h-full flex justify-center items-center">
+  <div class="rounded bg-white shadow p-4 max-w-screen-sm w-full">
+    <h1 class="mat-h1 text-center">Plan Seçimi</h1>
+    <form [formGroup]="form">
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Fakülte</mat-label>
+        <mat-select
+          formControlName="faculty"
+          (selectionChange)="facultySelected($event.value)"
+        >
+          <mat-option
+            *ngFor="let faculty of faculties$ | async"
+            [value]="faculty"
+          >
+            {{ faculty.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Bölüm</mat-label>
+        <mat-select
+          formControlName="department"
+          (selectionChange)="departmentSelected($event.value)"
+        >
+          <mat-option
+            *ngFor="let department of departments$ | async"
+            [value]="department"
+          >
+            {{ department.name }}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="departmentsLoading$ | async">...Loading</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Kayıt Dönemi</mat-label>
+        <mat-select
+          formControlName="term"
+          (selectionChange)="termSelected($event.value)"
+        >
+          <mat-option *ngFor="let term of terms$ | async" [value]="term">
+            {{ term.name }}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="termsLoading$ | async">...Loading</mat-hint>
+      </mat-form-field>
+
+      <div class="flex flex-row justify-end">
+        <div class="mr-4">
+          <a routerLink="/" mat-raised-button color="warn">GERİ DÖN</a>
+        </div>
+        <a
+          routerLink="/quick/class"
+          mat-raised-button
+          color="primary"
+          [disabled]="disableContinue$ | async"
+          [ngClass]="{ 'pointer-events-none': disableContinue$ | async }"
+        >
+          DERS SEÇ
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

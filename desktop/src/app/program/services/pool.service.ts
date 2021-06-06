@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Class } from "app/interfaces";
+import { ProgramClass } from "src/app/interfaces";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Sort } from "@angular/material/sort";
 import { TableService } from "./table.service";
@@ -10,10 +10,10 @@ import { ProgramService } from "./program.service";
   providedIn: "root",
 })
 export class PoolService {
-  private data = new BehaviorSubject<Class[]>([]);
-  selectedCourses: Class[] = [];
+  private data = new BehaviorSubject<ProgramClass[]>([]);
+  selectedCourses: ProgramClass[] = [];
 
-  getData(): Observable<Class[]> {
+  getData(): Observable<ProgramClass[]> {
     return this.data.asObservable();
   }
 
@@ -43,17 +43,17 @@ export class PoolService {
   /**
    * Adds or removes a course to or from the selection and table.
    *
-   * @param   {Class[]}  data    All courses
-   * @param   {Class}    course  Course to be toggled
+   * @param   {ProgramClass[]}  data    All courses
+   * @param   {ProgramClass}    course  Course to be toggled
    * @param   {boolean}  value   True if going to be added
    *
-   * @return  {Class[]}          All courses but updated
+   * @return  {ProgramClass[]}          All courses but updated
    */
   private toggleSelected(
-    data: Class[],
-    course: Class,
+    data: ProgramClass[],
+    course: ProgramClass,
     value: boolean
-  ): Class[] {
+  ): ProgramClass[] {
     /* Set selected to value, update behaviour subject */
     const i = data.findIndex((x) => x === course);
     data[i].selected = value;
@@ -64,11 +64,11 @@ export class PoolService {
    * Checks all courses can be selected or not.
    * Updates 'canBeSelected' field
    *
-   * @param   {Class[]}  data  All courses
+   * @param   {ProgramClass[]}  data  All courses
    *
-   * @return  {Class[]}             All courses but updated
+   * @return  {ProgramClass[]}             All courses but updated
    */
-  private checkCanBeSelected(data: Class[]): Class[] {
+  private checkCanBeSelected(data: ProgramClass[]): ProgramClass[] {
     data = data.map((course) => {
       if (!course.selected) {
         course.canBeSelected = this.tableService.canAddCourse(course);
@@ -92,10 +92,10 @@ export class PoolService {
   /**
    * Load data to pool from inner sourecs.
    *
-   * @param   {Class[]}  data       All courses
+   * @param   {ProgramClass[]}  data       All courses
    * @param   {number}   sortDelay  Delay of loading, for router event to finish
    */
-  update(data: Class[], sortDelay: number = 0) {
+  update(data: ProgramClass[], sortDelay: number = 0) {
     setTimeout(() => {
       data = this.sortService.sortData(data);
       this.data.next(data);
@@ -105,9 +105,9 @@ export class PoolService {
   /**
    * Adds a course to the selection and table
    *
-   * @param   {Class}  course  Course to be added
+   * @param   {ProgramClass}  course  Course to be added
    */
-  addToSelection(course: Class) {
+  addToSelection(course: ProgramClass) {
     this.selectedCourses.push(course);
     this.tableService.addCourseToTable(course);
     this.programService.addCourseToSelection(course);
@@ -116,9 +116,9 @@ export class PoolService {
   /**
    * Removes a course from the selection and table
    *
-   * @param   {Class}  course  Course to be removed
+   * @param   {ProgramClass}  course  Course to be removed
    */
-  removeFromSelection(course: Class) {
+  removeFromSelection(course: ProgramClass) {
     this.selectedCourses.splice(
       this.selectedCourses.findIndex((x) => x === course),
       1

@@ -1,0 +1,56 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,300&display=swap");
+
+html,
+body {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 95%;
+}
+
+.unselectable {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+/* ------------------------------- Scrollbars ------------------------------- */
+@media screen and (min-width: 960px) {
+  ::-webkit-scrollbar {
+    @apply w-3;
+  }
+  ::-webkit-scrollbar-button {
+    @apply hidden;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-300;
+    border-radius: 0.125rem /* 2px */;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    border-radius: 0.125rem /* 2px */;
+    transition-duration: 100ms;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+  ::-webkit-scrollbar-track-piece {
+    @apply bg-gray-300;
+    border-radius: 0.125rem /* 2px */;
+  }
+  ::-webkit-scrollbar-corner {
+    @apply bg-gray-300;
+  }
+  .thin-scrollbar ::-webkit-scrollbar {
+    @apply w-2;
+  }
+}

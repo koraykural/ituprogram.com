@@ -1,0 +1,77 @@
+<div class="h-full flex flex-col items-center">
+  <div
+    class="
+      rounded
+      bg-white
+      sm:shadow
+      sm:px-4
+      py-4
+      mt-4
+      max-w-screen-md
+      w-full
+      overflow-x-auto
+    "
+  >
+    <div class="border-t border-gray-200">
+      <app-weekly-table></app-weekly-table>
+    </div>
+  </div>
+  <div
+    class="
+      rounded
+      bg-white
+      sm:shadow
+      sm:px-4
+      py-4
+      my-4
+      max-w-screen-md
+      w-full
+      overflow-x-auto
+    "
+  >
+    <table class="w-full">
+      <thead class="bg-gray-600 text-white text-left">
+        <th class="px-2 py-1 border-l border-gray-600">Kod</th>
+        <th class="px-2 py-1">Ders</th>
+        <th class="px-2 py-1">Gün</th>
+        <th class="px-2 py-1">Saat</th>
+        <th class="px-2 py-1 border-r border-gray-600">CRN</th>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let course of selectedCourses$ | async; let i = index"
+          [ngClass]="{ 'bg-gray-100': i % 2 === 0 }"
+          class="border-b"
+        >
+          <td class="px-2 py-1 border-l">{{ course.code }}</td>
+          <td class="px-2 py-1">{{ course.name }}</td>
+          <td class="px-2 py-1 whitespace-pre-line">
+            {{ course.days | convertComma }}
+          </td>
+          <td class="px-2 py-1 whitespace-pre-line">
+            {{ course.hours | convertComma }}
+          </td>
+          <td class="px-2 py-1 border-r">{{ course.crn }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="mt-4 w-full border text-center">
+      <tbody>
+        <tr>
+          <th class="font-bold border p-2">CRN</th>
+          <ng-container *ngIf="crns$ | async as crns">
+            <td
+              class="p-2 border cursor-pointer hover:bg-blue-50"
+              matTooltip="Kopyalamak için tıklayın"
+              [matTooltipPosition]="'above'"
+              matRipple
+              (click)="clipboard.copy(crns)"
+            >
+              {{ crns }}
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

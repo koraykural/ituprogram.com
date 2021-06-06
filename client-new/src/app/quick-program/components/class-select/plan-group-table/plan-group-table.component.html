@@ -1,0 +1,59 @@
+<div [smoothHeight]="expanded$ | async">
+  <table class="w-full" [ngClass]="{ 'mb-4': !(showExpandButton$ | async) }">
+    <tr class="border-t border-b-2">
+      <th class="pl-2 py-1 text-left">
+        <mat-checkbox
+          *ngIf="(isMasterChecked$ | async) != null"
+          [color]="'primary'"
+          [checked]="isMasterChecked"
+          [indeterminate]="isMasterIndeterminate$ | async"
+          (change)="toggleMaster($event.checked)"
+        ></mat-checkbox>
+      </th>
+      <th class="py-1 px-1 text-left unselectable">Kod</th>
+      <th class="py-1 px-1 text-left unselectable">Ders</th>
+      <th class="pr-2 py-1 text-right unselectable">Kredi</th>
+    </tr>
+    <tbody>
+      <tr
+        *ngFor="let item of visibleItems$ | async; trackBy: identify"
+        class="border-t border-b unselectable"
+        [ngClass]="{
+          'hover:bg-blue-50 transition-colors duration-200 cursor-pointer':
+            item.isOpened,
+          'bg-blue-100 hover:bg-blue-200 hover:bg-opacity-75': item.selected,
+          'bg-gray-300 hover:bg-gray-300 pointer-events-none': !item.isOpened
+        }"
+        (click)="rowSelectionChange(item.code, !item.selected)"
+      >
+        <td class="pl-2 py-1">
+          <mat-checkbox
+            [color]="'primary'"
+            [checked]="item.selected"
+            [disabled]="!item.isOpened"
+            (click)="$event.stopPropagation()"
+            (change)="rowSelectionChange(item.code, $event.checked)"
+          ></mat-checkbox>
+        </td>
+        <td class="py-1 px-1 whitespace-nowrap">{{ item.code }}</td>
+        <td class="py-1 px-1 overflow-ellipsis">{{ item.name }}</td>
+        <td class="pr-2 px-1 py-1 text-right">{{ item.credits }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="showExpandButton$ | async" class="text-center">
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="expanded$.next(!expanded$.value)"
+      class="focus-within:outline-none"
+    >
+      <mat-icon
+        class="transition-all duration-500"
+        [ngClass]="{ 'transform rotate-180': expanded$ | async }"
+      >
+        expand_more
+      </mat-icon>
+    </button>
+  </div>
+</div>

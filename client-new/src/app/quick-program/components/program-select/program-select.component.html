@@ -1,0 +1,29 @@
+<mat-drawer-container class="h-full" [hasBackdrop]="false">
+  <mat-drawer
+    class="w-3/4 max-w-sm"
+    #drawer
+    [mode]="(isBigScreen$ | async) ? 'side' : 'over'"
+    [opened]="drawerOpen || (isBigScreen$ | async)"
+  >
+    <app-side-panel (drawerClose)="drawerOpen = false"></app-side-panel>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="h-full flex flex-col overflow-y-hidden">
+      <app-weekly-table></app-weekly-table>
+      <div class="flex-1 overflow-y-auto border-t-4 relative">
+        <app-class-pool></app-class-pool>
+        <div class="fixed block left-0 top-1/2 -translate-y-1/2">
+          <button
+            mat-icon-button
+            color="accent"
+            *ngIf="!(isBigScreen$ | async)"
+            mat-raised-button
+            (click)="drawerOpen = !drawerOpen"
+          >
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

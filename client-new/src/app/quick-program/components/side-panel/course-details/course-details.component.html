@@ -1,0 +1,57 @@
+<div class="p-4 bg-gray-200 z-40">
+  <ng-container *ngIf="course$ | async as course">
+    <div class="text-xs border border-gray-400 p-1" style="min-height: 200px">
+      <h2 class="font-medium text-sm text-center mb-2">{{ course.name }}</h2>
+      <div class="flex flex-col">
+        <div class="my-1">
+          <table>
+            <tr>
+              <td class="font-medium pr-4 leading-3">Kayıtlı / Kontenjan</td>
+              <td>{{ course.enrolled }} / {{ course.capacity }}</td>
+            </tr>
+            <!-- <tr>
+              <td class="font-medium pr-4 leading-3">Kredi</td>
+              <td>{{ course.credits }}</td>
+            </tr> -->
+            <tr>
+              <td class="font-medium pr-4 leading-3">CRN</td>
+              <td>{{ course.crn }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="my-1">
+          <span class="font-medium block">Dersin Hocaları</span>
+          {{ course.lecturer }}
+        </div>
+        <div class="my-1">
+          <span class="font-medium block">Bölüm Kısıtlamaları</span>
+          {{ course.restricts | convertComma }}
+        </div>
+        <div class="my-1">
+          <span class="font-medium block">Ön Koşullar</span>
+          {{ course.preReqs | convertComma }}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!(course$ | async)">
+    <div
+      class="
+        h-48
+        border border-gray-400
+        px-8
+        w-full
+        flex
+        justify-center
+        items-center
+        font-medium
+        text-center
+      "
+    >
+      <span>
+        Fareyi bir dersin üzerine getirerek o ders hakkındaki detayları burada
+        görebilirsiniz.
+      </span>
+    </div>
+  </ng-container>
+</div>

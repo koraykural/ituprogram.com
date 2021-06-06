@@ -1,0 +1,15 @@
+{
+  "editor.rulers": [
+    100
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.VSCodeCounter": true,
+    "**/node_modules": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "data": true
+  },
+  "editor.formatOnSave": true
+}

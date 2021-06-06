@@ -1,0 +1,53 @@
+<div class="h-full overflow-y-auto">
+  <div
+    *ngIf="loading || data.length == 0"
+    class="flex justify-center items-center h-full"
+  >
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div
+      *ngIf="!loading && data.length === 0"
+      class="text-center text-2xl mx-12"
+    >
+      <span *ngIf="!selectionActive">
+        Arama yapmak için soldaki menüden dönem ve ders kodu seçiniz.
+      </span>
+      <span *ngIf="selectionActive">
+        Aradığınız kriterlerde ders bulunamadı.
+      </span>
+    </div>
+  </div>
+  <div *ngIf="!loading && data.length > 0">
+    <table class="w-full bg-white">
+      <thead class="bg-gray-600 text-white">
+        <th
+          class="font-medium text-left px-2 py-2"
+          *ngFor="let header of headers"
+        >
+          {{ header.shown }}
+        </th>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let course of data; let i = index"
+          class="hover:bg-gray-200"
+          [ngClass]="{
+            'bg-gray-100': i % 2 === 0
+          }"
+        >
+          <td
+            *ngFor="let header of headers"
+            class="px-2 py-2"
+            [ngClass]="{
+              'bg-gray-100': i % 2 === 0,
+              'whitespace-nowrap': header.identifier === 'code',
+              'whitespace-pre-line': preserverWrap(header.identifier),
+              'restricts ': header.identifier === 'restricts'
+            }"
+          >
+            {{ course[header.identifier] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

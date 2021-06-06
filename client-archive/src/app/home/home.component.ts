@@ -9,6 +9,7 @@ import { Class } from "../interfaces";
 })
 export class HomeComponent implements OnInit {
   terms = [
+    { value: "2020-2021-spring", name: "2020 - 2021 Bahar Dönemi" },
     { value: "2020-2021-fall", name: "2020 - 2021 Güz Dönemi" },
     { value: "2019-2020-summer", name: "2019 - 2020 Yaz Dönemi" },
     { value: "2019-2020-spring", name: "2019 - 2020 Bahar Dönemi" },

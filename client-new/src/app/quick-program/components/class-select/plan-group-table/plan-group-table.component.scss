@@ -1,0 +1,23 @@
+tr > td:nth-of-type(1) {
+  /* Checkbox */
+  width: 10%;
+}
+tr > td:nth-of-type(2) {
+  /* Code */
+  width: 25%;
+}
+tr > td:nth-of-type(3) {
+  /* Name */
+  width: 60%;
+}
+tr > td:nth-of-type(4) {
+  /* Credits */
+  width: 15%;
+}
+
+td {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

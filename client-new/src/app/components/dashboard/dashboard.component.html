@@ -1,0 +1,36 @@
+<div
+  class="
+    h-full
+    w-full
+    container
+    my-4
+    flex flex-row flex-wrap
+    justify-center
+    items-center
+  "
+>
+  <a
+    *ngFor="let link of links"
+    [routerLink]="link.value"
+    class="
+      shadow-sm
+      bg-white
+      transition-all
+      duration-300
+      hover:bg-blue-50
+      hover:shadow
+      p-4
+      mx-4
+      my-2
+      h-72
+      w-72
+      flex
+      justify-center
+      items-center
+      text-lg
+      font-medium
+    "
+  >
+    {{ link.label }}
+  </a>
+</div>

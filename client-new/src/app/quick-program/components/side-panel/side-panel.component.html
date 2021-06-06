@@ -1,0 +1,95 @@
+<div class="bg-gray-200 h-full w-full p-4 relative">
+  <div class="absolute right-0 top-1/2 -translate-y-1/2">
+    <button
+      mat-icon-button
+      color="accent"
+      *ngIf="!(isBigScreen$ | async)"
+      mat-raised-button
+      (click)="drawerClose.emit()"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  </div>
+  <div class="mb-4 border-b border-gray-300 pb-2 flex justify-center">
+    <a mat-flat-button routerLink="/quick/class">DERS EKLE / ÇIKAR</a>
+    <span class="mr-2"></span>
+    <a mat-flat-button routerLink="/quick/complete" color="primary">TAMAMLA</a>
+  </div>
+  <div class="mb-4">
+    <mat-slide-toggle
+      color="primary"
+      matTooltip="Bölüm kısıtlamaları listesinde bölümünüz yer almıyorsa ders gizlenir."
+      [checked]="hideMajorRestricted$ | async"
+      (change)="updateFilter({ hideMajorRestricted: $event.checked })"
+    >
+      Bölümü kısıtlananları gizle
+    </mat-slide-toggle>
+  </div>
+  <div class="mb-4">
+    <mat-slide-toggle
+      color="primary"
+      matTooltip="Gün ve saatleri, zaten seçilmiş bir dersinkiyle çakışıyorsa ders gizlenir."
+      [checked]="hideConflicts$ | async"
+      (change)="updateFilter({ hideConflicts: $event.checked })"
+    >
+      Çakışanları gizle
+    </mat-slide-toggle>
+  </div>
+  <div class="mb-4">
+    <mat-slide-toggle
+      color="primary"
+      matTooltip="Aynı koda sahip başka bir ders zaten seçilmişse ders gizlenir."
+      [checked]="hideAlternatives$ | async"
+      (change)="updateFilter({ hideAlternatives: $event.checked })"
+    >
+      Alternatifleri gizle
+    </mat-slide-toggle>
+  </div>
+  <!-- <div class="mb-4">
+    <mat-slide-toggle
+      color="primary"
+      matTooltip="Aynı koda sahip ders sayısı az ise ders yukarıda sıralanır."
+      [checked]="sortByAlternatives$ | async"
+      (change)="updateSort($event.checked)"
+    >
+      Alternatiflere göre sırala
+    </mat-slide-toggle>
+  </div> -->
+  <div class="border-t border-gray-300 py-2">
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let code of codes$ | async"
+        [color]="code.selected ? 'primary' : 'accent'"
+        [selected]="code.selected"
+        (click)="
+          codeSelectionChange$.next({
+            code: code.code,
+            selected: !code.selected
+          })
+        "
+      >
+        {{ code.code }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="border-b border-t border-gray-300 py-2">
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let day of days$ | async"
+        [color]="day.selected ? 'primary' : 'accent'"
+        [selected]="day.selected"
+        (click)="
+          daySelectionChange$.next({
+            day: day.day,
+            selected: !day.selected
+          })
+        "
+      >
+        {{ day.day }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="absolute bottom-0 left-0 right-0">
+    <app-course-details></app-course-details>
+  </div>
+</div>

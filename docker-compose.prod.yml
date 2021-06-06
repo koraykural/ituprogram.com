@@ -18,6 +18,12 @@ services:
       - "4200:4200"
     networks:
       - nginx-routing
+  client-new:
+    image: koraykural/ituprogram-client-new
+    ports:
+      - "4200:4200"
+    networks:
+      - nginx-routing
   client-archive:
     image: koraykural/ituprogram-client-archive
     ports:

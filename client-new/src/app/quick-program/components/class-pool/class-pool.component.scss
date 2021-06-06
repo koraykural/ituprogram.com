@@ -1,0 +1,25 @@
+td:nth-of-type(1) {
+  /* Checkbox */
+  max-width: 50px;
+}
+td:nth-of-type(2) {
+  /* Code */
+  max-width: 160px;
+}
+// td:nth-of-type(3) {
+//   /* Name */
+// }
+td:nth-of-type(4) {
+  /* Days */
+  max-width: 100px;
+  white-space: pre-line;
+}
+td:nth-of-type(5) {
+  /* Hours */
+  max-width: 100px;
+  white-space: pre-line;
+}
+td:nth-of-type(6) {
+  /* CRN */
+  max-width: 100px;
+}

@@ -1,0 +1,48 @@
+<table class="w-full bg-white">
+  <tr class="border-t border-b-2">
+    <th class="pl-2 py-1 text-left"></th>
+    <th class="py-1 px-1 text-left unselectable">Kod</th>
+    <th class="py-1 px-1 text-left unselectable">Ders</th>
+    <th class="py-1 px-1 text-left unselectable">Gün</th>
+    <th class="py-1 px-1 text-left unselectable">Saat</th>
+    <th class="pr-2 px-1 py-1 text-right unselectable">CRN</th>
+  </tr>
+  <tbody>
+    <tr
+      *ngFor="let item of courses$ | async; trackBy: identifier"
+      class="
+        border-t border-b
+        unselectable
+        hover:bg-blue-50
+        transition-colors
+        duration-200
+        cursor-pointer
+      "
+      [ngClass]="{
+        'bg-blue-100 hover:bg-blue-200 hover:bg-opacity-75': item.selected,
+        'bg-gray-300 hover:bg-gray-300 pointer-events-none': !item.canBeSelected
+      }"
+      (click)="rowClick(item)"
+      (mouseenter)="infoService.mouseEntered(item)"
+      (mouseleave)="infoService.clearHovered()"
+    >
+      <td class="pl-2 py-2">
+        <mat-checkbox
+          [color]="'primary'"
+          [checked]="item.selected"
+          (click)="$event.stopPropagation()"
+          (change)="item.selected = $event.checked; rowClick(item)"
+        ></mat-checkbox>
+      </td>
+      <td class="py-2 px-1 whitespace-nowrap">{{ item.code }}</td>
+      <td class="py-2 px-1 overflow-ellipsis">{{ item.name }}</td>
+      <td class="py-2 px-1">
+        {{ item.days | convertComma }}
+      </td>
+      <td class="px-1 py-2">
+        {{ item.hours | convertComma }}
+      </td>
+      <td class="pr-2 px-1 py-2 text-right">{{ item.crn }}</td>
+    </tr>
+  </tbody>
+</table>
