@@ -21,6 +21,7 @@ export class ClassPoolComponent implements OnInit {
     { shown: "Ders", identifier: "name" },
     { shown: "Gün", identifier: "days" },
     { shown: "Saat", identifier: "hours" },
+    { shown: "Öğretim Yöntemi", identifier: "teachingMethod" },
     { shown: "Bina", identifier: "buildings" },
     { shown: "CRN", identifier: "crn" },
   ];
@@ -54,9 +55,8 @@ export class ClassPoolComponent implements OnInit {
 
   setHeightOffPoolElement() {
     const screenHeight = window.innerHeight;
-    const bottomButtons: HTMLDivElement = document.querySelector(
-      ".bottom-buttons"
-    );
+    const bottomButtons: HTMLDivElement =
+      document.querySelector(".bottom-buttons");
     const weekTable: HTMLDivElement = document.querySelector(".week-table");
     this.poolTableMaxHeight =
       screenHeight - (bottomButtons.offsetHeight + weekTable.offsetHeight + 18);

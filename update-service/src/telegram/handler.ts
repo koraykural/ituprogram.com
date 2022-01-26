@@ -36,7 +36,7 @@ export default class Handler {
   }
 
   crn_izle_listener(ctx: TelegrafContext, num: number) {
-    const { callback_query } = ctx.update;
+    const { callback_query } = ctx.update as any;
     if (!callback_query || !callback_query.data || !callback_query.from.username) {
       return;
     }
@@ -101,7 +101,7 @@ export default class Handler {
 
   crn_izleme_callback(ctx: TelegrafContext) {
     ctx.answerCbQuery();
-    const { callback_query } = ctx.update;
+    const { callback_query } = ctx.update as any;
     if (!callback_query || !callback_query.data) {
       return;
     }

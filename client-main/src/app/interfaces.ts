@@ -1,6 +1,7 @@
 export interface Class {
   code: string;
   name: string;
+  teachingMethod: string;
   days: Array<string>;
   hours: Array<string>;
   lecturer: string;

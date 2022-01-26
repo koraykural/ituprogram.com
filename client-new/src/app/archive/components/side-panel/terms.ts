@@ -1,4 +1,6 @@
 export const terms = [
+  { value: '2021-2022-fall', name: '2021 - 2022 Güz Dönemi' },
+  { value: '2020-2021-summer', name: '2020 - 2021 Yaz Dönemi' },
   { value: '2020-2021-spring', name: '2020 - 2021 Bahar Dönemi' },
   { value: '2020-2021-fall', name: '2020 - 2021 Güz Dönemi' },
   { value: '2019-2020-summer', name: '2019 - 2020 Yaz Dönemi' },

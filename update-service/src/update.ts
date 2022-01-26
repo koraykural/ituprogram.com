@@ -1,10 +1,8 @@
 import { ObjectId } from "mongodb";
-import { Query } from "mongoose";
 import { ClassSchema, KontenjanSchema, PlanSchema, UpdateSchema, CodeSchema } from "./config/mongo";
 import CustomPuppeteer from "./config/puppeteer";
 import { codeLetters } from "./consts";
 import { codesCollection, getUniqueClasses, ScrapeOpenedClasses } from "./helpers/classes";
-import { IClass } from "./models/class.model";
 import { emptyCrnCheck } from "./telegram/database";
 
 export const UpdateStandart = async (page: CustomPuppeteer, scrapeAll: boolean) => {
@@ -19,7 +17,14 @@ export const UpdateStandart = async (page: CustomPuppeteer, scrapeAll: boolean) 
     const codeLetter = letterList[i];
 
     // Scrape page of codeLetter
-    let classes = await ScrapeOpenedClasses(page, codeLetter);
+    let classes = [];
+    try {
+      classes = await ScrapeOpenedClasses(page, codeLetter);
+    } catch (error) {
+      console.log(`${codeLetter} skipping: Error occured while scraping`);
+      UpdateSchema.updateCode(codeLetter, "Bazı dersler güncellenemedi.", false);
+      continue;
+    }
 
     // Skip if no class exists
     if (classes.length < 1) {
@@ -46,23 +51,25 @@ export const UpdateStandart = async (page: CustomPuppeteer, scrapeAll: boolean) 
     emptyCrnCheck(emptyCrns);
     await Promise.all(promises)
       .then(() => {
+        console.log(`${codeLetter} scraped ${classes.length} courses`);
         UpdateSchema.updateCode(
           codeLetter,
           `Sorunsuz güncellendi. ${classes.length} dersin verisi yenilendi.`,
           true
         );
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error(error);
         UpdateSchema.updateCode(codeLetter, "Bazı dersler güncellenemedi.", false);
       });
   }
 };
 
 export const UpdateDetailed = async (page: CustomPuppeteer) => {
-  // await ClassSchema.deleteMany({});
-  // await new Promise((r) => setTimeout(r, 3000)); // Sleep
+  await ClassSchema.deleteMany({});
+  await new Promise((r) => setTimeout(r, 3000)); // Sleep
   await UpdateStandart(page, true);
-  await new Promise((r) => setTimeout(r, 30 * 1000)); // Sleep 30 seconds
+  await new Promise((r) => setTimeout(r, 20 * 1000)); // Sleep 20 seconds
   updatePlanIsOpened();
   updateCodes();
 };
@@ -118,16 +125,6 @@ const updatePlanIsOpened = async (): Promise<any> => {
       }
     );
   }
-
-  UpdateSchema.update(
-    {},
-    {
-      plans: {
-        situation: "Sorunsuz güncellendi.",
-        last_update: new Date(),
-      },
-    }
-  );
 };
 
 const updateCodes = async () => {
@@ -136,11 +133,15 @@ const updateCodes = async () => {
   await CodeSchema.deleteMany({});
   const openCodes = await codesCollection(allClasses);
   await CodeSchema.insertMany(openCodes);
-  UpdateSchema.update(
+  UpdateSchema.updateOne(
     {},
     {
       $set: {
         opened_classes: {
+          situation: "Sorunsuz güncellendi.",
+          last_update: new Date(),
+        },
+        plans: {
           situation: "Sorunsuz güncellendi.",
           last_update: new Date(),
         },

@@ -35,5 +35,5 @@ export const untrackList = (classes: IKontenjan[]) => {
     const thisClass = x.class as IClass;
     buttons.push([Markup.callbackButton(`${thisClass.code} - ${x.crn}`, `crnizleme-${x.crn}`)]);
   });
-  return Markup.inlineKeyboard(buttons).oneTime().resize().extra();
+  return (Markup.inlineKeyboard(buttons) as any).oneTime().resize().extra();
 };

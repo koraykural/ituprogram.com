@@ -5,19 +5,20 @@ import cron from "node-cron";
 import Puppeteer from "./config/puppeteer";
 import { UpdateStandart, UpdateDetailed } from "./update";
 import bot from "./telegram/app";
+// import { archiveCurrent } from "./helpers/archive";
 
 console.log("Puppeteer instance is being created...");
 const page = new Puppeteer();
 page.build();
 
-console.log("Telegram Bot is starting...");
-bot.launch();
+// console.log("Telegram Bot is starting...");
+// bot.launch();
 
-// Every two day at 01.00
-cron.schedule("3 1 * * *", () => {
-  console.log("Update started...");
-  UpdateDetailed(page);
-});
+// // Every two day at 01.00
+// cron.schedule("3 2 */2 * *", () => {
+//   console.log("Update started...");
+//   UpdateDetailed(page);
+// });
 
 // // Every one hour
 // cron.schedule("3 * * * *", () => {
@@ -31,6 +32,6 @@ cron.schedule("3 1 * * *", () => {
 //   UpdateStandart(page, false);
 // });
 
-// setTimeout(() => {
-//   UpdateDetailed(page);
-// }, 3000);
+setTimeout(() => {
+  UpdateDetailed(page);
+}, 3000);

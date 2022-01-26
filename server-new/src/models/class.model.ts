@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, { Document, Model, UpdateQuery } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -6,7 +6,6 @@ const ClassSchema = new Schema({
   crn: String,
   code: String,
   name: String,
-  teachingMethod: String,
   lecturer: String,
   buildings: [String],
   days: [String],
@@ -19,17 +18,16 @@ const ClassSchema = new Schema({
   lastUpdatedAt: Date,
 });
 
-ClassSchema.statics.updateByCrn = async function (crn: string, document: any) {
+ClassSchema.statics.updateByCrn = async function (crn: string, document: UpdateQuery<IClassModel>) {
   return this.updateOne({ crn }, document, { upsert: true }).exec();
 };
 
-export default mongoose.model<IClassDocument, IClassModel>("Class", ClassSchema);
+export default mongoose.model<IClassDocument, IClassModel>('Class', ClassSchema);
 
 export interface IClass {
   crn: string;
   code: string;
   name: string;
-  teachingMethod: string;
   lecturer: string;
   buildings: string[];
   days: string[];
@@ -44,5 +42,8 @@ export interface IClass {
 export interface IClassDocument extends IClass, Document {}
 
 export interface IClassModel extends Model<IClassDocument> {
-  updateByCrn(crn: string, document: any): any;
+  updateByCrn(
+    crn: string,
+    document: UpdateQuery<IClassModel>,
+  ): Promise<mongoose.Callback<IClassDocument>>;
 }

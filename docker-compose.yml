@@ -50,6 +50,19 @@ services:
       - CHOKIDAR_USEPOLLING=true
     networks:
       - nginx-routing
+  client-new:
+    build:
+      context: ./client-new
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client-new:/usr/src/app
+      - /app/node_modules
+    ports:
+      - "4202:4202"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - nginx-routing
   nginx:
     build:
       context: ./nginx

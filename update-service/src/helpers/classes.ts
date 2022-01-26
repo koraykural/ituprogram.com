@@ -50,17 +50,18 @@ export const ScrapeOpenedClasses = async (page: CustomPuppeteer, codeLetter: str
       thisClass.crn = rowData[0];
       thisClass.code = rowData[1];
       thisClass.name = rowData[2];
-      thisClass.lecturer = rowData[3];
-      thisClass.buildings = rowData[4].split("\n");
+      thisClass.teachingMethod = rowData[3];
+      thisClass.lecturer = rowData[4];
+      thisClass.buildings = rowData[5].split("\n");
       thisClass.buildings.pop();
-      thisClass.days = rowData[5].split("\n");
+      thisClass.days = rowData[6].split("\n");
       thisClass.days.pop();
-      thisClass.hours = rowData[6].split("\n");
+      thisClass.hours = rowData[7].split("\n");
       thisClass.hours.pop();
-      thisClass.capacity = parseInt(rowData[8]);
-      thisClass.enrolled = parseInt(rowData[9]);
-      thisClass.restricts = rowData[11].split(", ");
-      thisClass.preReqs = rowData[12].split("\n");
+      thisClass.capacity = parseInt(rowData[9]);
+      thisClass.enrolled = parseInt(rowData[10]);
+      thisClass.restricts = rowData[12].split(", ");
+      thisClass.preReqs = rowData[13].split("\n");
 
       thisClass.preReqs = thisClass.preReqs.filter((el) => {
         return el != "";
