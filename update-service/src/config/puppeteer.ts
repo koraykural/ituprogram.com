@@ -8,8 +8,12 @@ export default class CustomPuppeteer {
     this.browser = await puppeteer.launch({
       headless: true,
       product: "chrome",
-      executablePath: "google-chrome-stable",
-      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
+      executablePath: "/usr/bin/chromium",
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+      ],
     });
 
     this.page = (await this.browser.pages())[0];
